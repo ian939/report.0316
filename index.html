@@ -1,977 +1,1062 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>성장지원팀 업무 마일스톤 및 전략 보고</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-        body { font-family: 'Pretendard', sans-serif; background-color: #f8fafc; }
-        .gradient-text { background: linear-gradient(90deg, #2563eb, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .card { transition: all 0.3s ease; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); }
-        
-        /* Chart Styles */
-        .chart-grid { display: grid; grid-template-columns: repeat(24, 1fr); gap: 2px; align-items: flex-end; height: 100px; padding-bottom: 5px; }
-        .bar { border-radius: 2px 2px 0 0; position: relative; transition: opacity 0.2s; }
-        .bar:hover { opacity: 0.8; }
-        .bar:hover .tooltip { display: block; }
-        .tooltip { display: none; position: absolute; top: -30px; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; white-space: nowrap; z-index: 50; }
-        
-        .hour-labels { display: flex; justify-content: space-between; font-size: 9px; color: #94a3b8; padding-top: 4px; border-top: 1px solid #e2e8f0; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SK일렉링크 다이렉트 플랜</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --gold:#E8A84C;
+  --gold-dim:#C8892A;
+  --gold-tint:rgba(232,168,76,.08);
+  --green:#2DD4A0;
+  --green-tint:rgba(45,212,160,.08);
+  --red:#FF5757;
+  --bg:#080810;
+  --surface:#0F0F1A;
+  --surface2:#141422;
+  --border:rgba(255,255,255,.07);
+  --border-hi:rgba(255,255,255,.13);
+  --ink:#F0F0F5;
+  --sub:rgba(240,240,245,.45);
+  --sub2:rgba(240,240,245,.25);
+  --r:14px;
+  --r-lg:20px;
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+  background:var(--bg);color:var(--ink);
+  line-height:1.6;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* ─── UTILS ─── */
+.wrap{max-width:980px;margin:0 auto;padding:0 28px}
+.section{padding:100px 0}
+.tc{text-align:center}.tc .sec-sub{margin:0 auto}
+
+/* ─── SCROLL REVEAL ─── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.25,.8,.25,1),transform .7s cubic-bezier(.25,.8,.25,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal-l{opacity:0;transform:translateX(-28px);transition:opacity .7s cubic-bezier(.25,.8,.25,1),transform .7s cubic-bezier(.25,.8,.25,1)}
+.reveal-l.in{opacity:1;transform:none}
+.reveal-r{opacity:0;transform:translateX(28px);transition:opacity .7s cubic-bezier(.25,.8,.25,1),transform .7s cubic-bezier(.25,.8,.25,1)}
+.reveal-r.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ─── CURSOR GLOW ─── */
+.cursor-glow{
+  position:fixed;width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,168,76,.06) 0%,transparent 65%);
+  pointer-events:none;z-index:0;
+  transform:translate(-50%,-50%);
+  transition:left .12s ease,top .12s ease;
+}
+
+/* ─── NAV ─── */
+.nav{
+  position:sticky;top:0;z-index:200;
+  background:rgba(8,8,16,.85);
+  backdrop-filter:blur(24px) saturate(180%);
+  border-bottom:1px solid var(--border);
+}
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  max-width:980px;margin:0 auto;padding:0 28px;height:60px;
+}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-icon{
+  width:34px;height:34px;border-radius:9px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-dim));
+  display:flex;align-items:center;justify-content:center;
+  color:#000;font-size:15px;font-weight:900;
+}
+.nav-name{font-size:15px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:12px;color:var(--sub);text-decoration:none;font-weight:500;letter-spacing:.02em;transition:color .2s}
+.nav-links a:hover{color:var(--gold)}
+.nav-pill{
+  font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--gold-tint);color:var(--gold);
+  border:1px solid rgba(232,168,76,.2);
+  padding:5px 13px;border-radius:100px;
+}
+@media(max-width:640px){.nav-links,.nav-pill{display:none}}
+
+/* ─── HERO ─── */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  position:relative;overflow:hidden;
+  background:var(--bg);padding:80px 0 100px;
+}
+/* noise texture */
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
+  opacity:.4;pointer-events:none;z-index:0;
+}
+.hero-orb1{
+  position:absolute;top:-20%;right:-10%;
+  width:680px;height:680px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,168,76,.12) 0%,transparent 65%);
+  animation:orb1 8s ease-in-out infinite alternate;pointer-events:none;
+}
+.hero-orb2{
+  position:absolute;bottom:-30%;left:-15%;
+  width:520px;height:520px;border-radius:50%;
+  background:radial-gradient(circle,rgba(45,212,160,.08) 0%,transparent 65%);
+  animation:orb2 10s ease-in-out infinite alternate;pointer-events:none;
+}
+@keyframes orb1{from{transform:translate(0,0) scale(1)}to{transform:translate(-40px,40px) scale(1.08)}}
+@keyframes orb2{from{transform:translate(0,0) scale(1)}to{transform:translate(30px,-30px) scale(1.06)}}
+
+.hero-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:60px;align-items:center;position:relative;z-index:1;
+}
+@media(max-width:768px){.hero-grid{grid-template-columns:1fr}.hero-cards{display:none}}
+
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:24px;
+}
+.eyebrow-line{width:28px;height:1px;background:var(--gold);opacity:.6}
+
+.hero-h1{
+  font-size:clamp(38px,5.5vw,58px);font-weight:900;
+  color:var(--ink);line-height:1.1;letter-spacing:-.03em;margin-bottom:24px;
+}
+.hero-h1 em{
+  font-style:normal;
+  background:linear-gradient(110deg,var(--gold) 0%,#F5C97A 50%,var(--gold-dim) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-desc{font-size:15px;color:var(--sub);line-height:1.85;margin-bottom:36px;font-weight:400}
+
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px}
+.chip{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.04);border:1px solid var(--border-hi);
+  color:rgba(240,240,245,.7);font-size:11px;font-weight:600;letter-spacing:.02em;
+  padding:7px 14px;border-radius:100px;
+  transition:border-color .2s,background .2s;
+}
+.chip:hover{border-color:rgba(232,168,76,.35);background:var(--gold-tint)}
+.chip-dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green)}
+.hero-meta{font-size:11px;color:var(--sub2);letter-spacing:.03em}
+.hero-meta b{color:var(--sub);font-weight:600}
+
+/* hero right */
+.hero-cards{display:flex;flex-direction:column;gap:14px}
+.hcard{
+  background:var(--surface);border:1px solid var(--border-hi);
+  border-radius:var(--r-lg);padding:22px 24px;
+  position:relative;overflow:hidden;
+  transition:border-color .3s;
+}
+.hcard::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(232,168,76,.4),transparent);
+}
+.hcard:hover{border-color:rgba(232,168,76,.25)}
+.hcard-label{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sub2);margin-bottom:14px}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.bar-name{font-size:11px;color:var(--sub);width:60px;flex-shrink:0;letter-spacing:.02em}
+.bar-track{flex:1;height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.bar-fill{height:100%;border-radius:2px;transition:width 1.4s cubic-bezier(.25,.8,.25,1)}
+.bf-gold{background:linear-gradient(90deg,var(--gold-dim),var(--gold));width:0}
+.bf-dim{background:rgba(255,255,255,.15);width:0}
+.bar-val{font-size:11px;font-weight:700;color:var(--ink);width:40px;text-align:right}
+.hcard-note{font-size:11px;font-weight:600;color:var(--green);margin-top:10px;letter-spacing:.01em}
+.hcard-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border);font-size:12px}
+.hcard-row:last-child{border:none}
+.hcard-row .k{color:var(--sub)}
+.hcard-row .v{color:var(--ink);font-weight:700}
+.hcard-row .v.o{color:var(--gold)}
+.hcard-row .v.g{color:var(--green)}
+
+/* ─── STAT BAR ─── */
+.stat-bar{
+  background:linear-gradient(90deg,#0C0A18,#0A0C1A);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+@media(max-width:580px){.stat-grid{grid-template-columns:repeat(2,1fr)}}
+.stat-cell{
+  padding:28px 20px;text-align:center;
+  border-right:1px solid var(--border);
+  position:relative;
+}
+.stat-cell::after{
+  content:'';position:absolute;bottom:0;left:20%;right:20%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(232,168,76,.3),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.stat-cell:hover::after{opacity:1}
+.stat-cell:last-child{border:none}
+.stat-n{font-size:clamp(22px,2.8vw,32px);font-weight:900;color:var(--gold);line-height:1;margin-bottom:7px;letter-spacing:-.02em}
+.stat-l{font-size:11px;color:var(--sub);font-weight:500;letter-spacing:.04em}
+
+/* ─── SECTION LABELS ─── */
+.label-tag{
+  display:inline-block;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  padding:5px 13px;border-radius:100px;margin-bottom:18px;
+  border:1px solid;
+}
+.lt-gold{background:var(--gold-tint);color:var(--gold);border-color:rgba(232,168,76,.2)}
+.lt-green{background:var(--green-tint);color:var(--green);border-color:rgba(45,212,160,.2)}
+.lt-dim{background:rgba(255,255,255,.04);color:var(--sub);border-color:var(--border-hi)}
+
+.sec-h{font-size:clamp(26px,3.8vw,40px);font-weight:900;letter-spacing:-.025em;line-height:1.2;margin-bottom:14px;color:var(--ink)}
+.sec-sub{font-size:15px;color:var(--sub);max-width:560px;line-height:1.8;font-weight:400}
+.sec-hd{margin-bottom:52px}
+
+/* ─── PROBLEM ─── */
+.problem{background:var(--surface)}
+.prob-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+@media(max-width:768px){.prob-grid{grid-template-columns:1fr}}
+
+.prob-list{display:flex;flex-direction:column;gap:10px}
+.prob-card{
+  background:var(--surface2);border-radius:var(--r);
+  padding:18px 20px;border-left:2px solid rgba(255,87,87,.5);
+  display:flex;gap:14px;align-items:flex-start;
+  transition:border-color .2s,background .2s;
+}
+.prob-card:hover{border-color:var(--red);background:rgba(255,87,87,.04)}
+.prob-ic{font-size:18px;flex-shrink:0;margin-top:1px}
+.prob-title{font-size:13px;font-weight:700;margin-bottom:4px;color:var(--ink)}
+.prob-desc{font-size:12px;color:var(--sub);line-height:1.65}
+
+.flow-box{
+  background:var(--surface2);border-radius:var(--r-lg);
+  padding:26px;border:1px solid var(--border-hi);
+}
+.fgl{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+.fgl-red{color:var(--red)}
+.fgl-green{color:var(--green)}
+.flow-item{
+  display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.03);border-radius:9px;
+  padding:10px 13px;margin-bottom:5px;
+  font-size:12px;font-weight:600;color:var(--ink);
+  border:1px solid transparent;
+  transition:border-color .2s;
+}
+.flow-num{width:22px;height:22px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800}
+.fn-dim{background:rgba(255,255,255,.08);color:var(--sub)}
+.fn-red{background:rgba(255,87,87,.2);color:var(--red)}
+.fn-green{background:rgba(45,212,160,.2);color:var(--green)}
+.flow-item.hi-red{border-color:rgba(255,87,87,.25);background:rgba(255,87,87,.05)}
+.flow-item.hi-green{border-color:rgba(45,212,160,.2);background:rgba(45,212,160,.05)}
+.flow-badge{margin-left:auto;font-size:9px;font-weight:700;padding:3px 9px;border-radius:100px;white-space:nowrap}
+.fb-red{background:rgba(255,87,87,.15);color:var(--red);border:1px solid rgba(255,87,87,.25)}
+.fb-green{background:rgba(45,212,160,.12);color:var(--green);border:1px solid rgba(45,212,160,.2)}
+.flow-arr{text-align:center;font-size:12px;margin:2px 0;opacity:.5}
+.flow-div{border:none;border-top:1px solid var(--border);margin:18px 0}
+
+/* ─── BENEFITS ─── */
+.benefits{background:var(--bg)}
+.ben-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:20px}
+@media(max-width:768px){.ben-grid{grid-template-columns:1fr}}
+
+.ben-card{
+  border-radius:var(--r-lg);padding:28px 24px;
+  border:1px solid var(--border);background:var(--surface);
+  transition:border-color .3s,transform .3s,background .3s;
+  position:relative;overflow:hidden;cursor:default;
+}
+.ben-card::after{
+  content:'';position:absolute;inset:0;border-radius:var(--r-lg);
+  background:radial-gradient(circle at 50% 0%,rgba(232,168,76,.07) 0%,transparent 60%);
+  opacity:0;transition:opacity .3s;
+}
+.ben-card:hover{border-color:rgba(232,168,76,.3);transform:translateY(-4px);background:var(--surface2)}
+.ben-card:hover::after{opacity:1}
+.ben-card.featured{background:linear-gradient(150deg,#13101E,#0E1620);border-color:rgba(232,168,76,.25)}
+.ben-card.featured::after{opacity:1}
+.ben-card.featured::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.ben-icon{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:18px;background:rgba(255,255,255,.05)}
+.ben-title{font-size:16px;font-weight:800;margin-bottom:6px;color:var(--ink);letter-spacing:-.01em}
+.ben-val{font-size:28px;font-weight:900;color:var(--gold);line-height:1;margin-bottom:12px;letter-spacing:-.02em}
+.ben-val .unit{font-size:13px;font-weight:600;color:var(--sub)}
+.ben-desc{font-size:12px;color:var(--sub);line-height:1.75}
+.ben-list{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:6px}
+.ben-list li{font-size:11px;color:var(--sub);display:flex;align-items:center;gap:7px}
+.ben-list li::before{content:'✓';color:var(--green);font-weight:800;font-size:10px;flex-shrink:0}
+
+.extra-banner{
+  background:var(--surface);border:1px solid var(--border-hi);
+  border-radius:var(--r-lg);padding:22px 26px;
+  display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+}
+.extra-ic{font-size:26px;flex-shrink:0}
+.extra-body{flex:1;min-width:180px}
+.extra-title{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:4px;letter-spacing:-.01em}
+.extra-desc{font-size:12px;color:var(--sub);line-height:1.65}
+.extra-badge{
+  background:var(--surface2);border-radius:var(--r);
+  padding:12px 20px;text-align:center;min-width:110px;border:1px solid var(--border);
+}
+.extra-badge .el{font-size:9px;color:var(--sub2);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.extra-badge .ev{font-size:18px;font-weight:900;color:var(--green)}
+.extra-badge .es{font-size:10px;color:var(--sub2)}
+
+/* ─── CALC ─── */
+.calc-sec{background:var(--surface)}
+.calc-box{
+  background:var(--surface2);border-radius:var(--r-lg);
+  border:1px solid var(--border-hi);overflow:hidden;
+}
+.calc-head{
+  background:linear-gradient(120deg,#12101E,#0D1520);
+  padding:26px 34px;border-bottom:1px solid var(--border);
+  position:relative;overflow:hidden;
+}
+.calc-head::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(232,168,76,.4),transparent);
+}
+.calc-head-title{font-size:18px;font-weight:800;color:var(--ink);margin-bottom:4px;letter-spacing:-.01em}
+.calc-head-sub{font-size:12px;color:var(--sub2);letter-spacing:.02em}
+.calc-body{padding:32px}
+
+.tabs{display:flex;gap:4px;margin-bottom:28px;background:rgba(255,255,255,.04);padding:4px;border-radius:10px;width:fit-content}
+.tab{padding:8px 18px;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--sub);letter-spacing:.02em;transition:all .2s}
+.tab.on{background:var(--surface);color:var(--gold);box-shadow:0 2px 12px rgba(0,0,0,.3)}
+
+.calc-panel{display:none}
+.calc-panel.on{display:block}
+.calc-cols{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+@media(max-width:580px){.calc-cols{grid-template-columns:1fr}}
+
+.cmp-stack{display:flex;flex-direction:column;gap:8px}
+.cmp-row{
+  padding:14px 16px;border-radius:var(--r);
+  background:rgba(255,255,255,.03);border:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+  transition:border-color .2s;
+}
+.cmp-row.active{background:var(--gold-tint);border-color:rgba(232,168,76,.3)}
+.cmp-label{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.cmp-row.active .cmp-label{color:var(--gold)}
+.cmp-sub2{font-size:10px;color:var(--sub2)}
+.cmp-row.active .cmp-sub2{color:rgba(232,168,76,.6)}
+.cmp-price{font-size:18px;font-weight:900;color:var(--ink);letter-spacing:-.01em}
+.cmp-row.active .cmp-price{color:var(--gold)}
+.cmp-vs{text-align:center;font-size:10px;font-weight:700;color:var(--sub2);letter-spacing:.12em}
+
+.sv-card{
+  background:linear-gradient(150deg,#0D0D1C,#0A1018);
+  border:1px solid var(--border-hi);
+  border-radius:var(--r-lg);padding:24px 20px;
+  position:relative;overflow:hidden;
+}
+.sv-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--green),transparent);
+}
+.sv-label{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sub2);margin-bottom:8px}
+.sv-amount{font-size:36px;font-weight:900;color:var(--green);line-height:1;margin-bottom:4px;letter-spacing:-.02em}
+.sv-period{font-size:11px;color:var(--sub2);margin-bottom:18px}
+.sv-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:11px}
+.sv-row:last-child{border:none}
+.sv-row .sk{color:var(--sub2)}
+.sv-row .sv{color:var(--ink);font-weight:700}
+.sv-row .sv.g{color:var(--green)}
+.calc-note{font-size:10px;color:var(--sub2);margin-top:16px;text-align:center;letter-spacing:.02em}
+
+/* ─── TRUST ─── */
+.trust{background:var(--bg)}
+.trust-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+@media(max-width:768px){.trust-grid{grid-template-columns:1fr}}
+
+.trust-list{display:flex;flex-direction:column;gap:10px}
+.trust-card{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:16px 18px;border-radius:var(--r);
+  border:1px solid var(--border);background:var(--surface);
+  transition:border-color .2s,background .2s;
+}
+.trust-card:hover{border-color:rgba(45,212,160,.3);background:rgba(45,212,160,.03)}
+.trust-chk{
+  width:30px;height:30px;border-radius:8px;
+  background:rgba(45,212,160,.15);border:1px solid rgba(45,212,160,.25);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--green);font-size:13px;font-weight:900;flex-shrink:0;
+}
+.trust-title{font-size:13px;font-weight:700;margin-bottom:4px;color:var(--ink)}
+.trust-desc{font-size:12px;color:var(--sub);line-height:1.65}
+
+.contract-card{
+  background:var(--surface);border:1px solid var(--border-hi);
+  border-radius:var(--r-lg);padding:28px;
+  position:relative;overflow:hidden;
+}
+.contract-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.contract-h{font-size:15px;font-weight:800;color:var(--ink);margin-bottom:20px;display:flex;align-items:center;gap:8px;letter-spacing:-.01em}
+.contract-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border);font-size:12px}
+.contract-row:last-child{border:none}
+.ck{color:var(--sub2)}
+.cv{color:var(--ink);font-weight:700;text-align:right;max-width:58%}
+.cv.o{color:var(--gold)}
+.cv.g{color:var(--green)}
+
+/* ─── PROCESS ─── */
+.process{background:var(--surface)}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);position:relative}
+@media(max-width:768px){.timeline{grid-template-columns:1fr 1fr;gap:28px}}
+@media(max-width:440px){.timeline{grid-template-columns:1fr}}
+.t-connector{
+  position:absolute;top:39px;left:12.5%;right:12.5%;
+  height:1px;background:linear-gradient(90deg,var(--gold-dim),var(--green));opacity:.25;z-index:0;
+}
+@media(max-width:768px){.t-connector{display:none}}
+.t-step{text-align:center;padding:0 12px;position:relative;z-index:1}
+.t-icon{
+  width:78px;height:78px;border-radius:50%;margin:0 auto 18px;
+  display:flex;align-items:center;justify-content:center;font-size:24px;
+  border:1px solid var(--border-hi);
+}
+.ti1{background:rgba(232,168,76,.08)}
+.ti2{background:rgba(232,168,76,.14)}
+.ti3{background:rgba(45,212,160,.08)}
+.ti4{background:rgba(45,212,160,.14)}
+.t-step-label{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+.t-step:nth-child(3) .t-step-label,.t-step:nth-child(4) .t-step-label{color:var(--green)}
+.t-title{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:8px;letter-spacing:-.01em}
+.t-desc{font-size:11px;color:var(--sub);line-height:1.65}
+.t-dur{
+  display:inline-block;margin-top:10px;
+  font-size:10px;font-weight:700;letter-spacing:.04em;
+  background:rgba(255,255,255,.05);border:1px solid var(--border);
+  color:var(--sub);padding:4px 11px;border-radius:100px;
+}
+
+/* ─── SOCIAL ─── */
+.social{background:var(--bg)}
+.counter-box{
+  background:var(--surface);border:1px solid var(--border-hi);
+  border-radius:var(--r-lg);padding:34px;text-align:center;max-width:540px;margin:0 auto 36px;
+  position:relative;overflow:hidden;
+}
+.counter-box::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.ctr-label{font-size:11px;font-weight:600;color:var(--sub);margin-bottom:14px;letter-spacing:.04em}
+.ctr-num{font-size:68px;font-weight:900;color:var(--gold);line-height:1;margin-bottom:4px;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.ctr-unit{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:22px}
+.ctr-track{background:rgba(255,255,255,.06);border-radius:100px;height:4px;overflow:hidden;margin-bottom:10px}
+.ctr-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--gold-dim),var(--gold));width:0;transition:width 1.5s cubic-bezier(.25,.8,.25,1)}
+.ctr-cap{font-size:11px;color:var(--sub2)}
+.ctr-cap strong{color:var(--gold);font-weight:700}
+
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:640px){.review-grid{grid-template-columns:1fr}}
+.review-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);padding:18px;
+  transition:border-color .2s;
+}
+.review-card:hover{border-color:var(--border-hi)}
+.rev-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.rav{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;background:rgba(255,255,255,.05)}
+.r-name{font-size:12px;font-weight:700;color:var(--ink)}
+.r-dong{font-size:10px;color:var(--sub2)}
+.r-stars{font-size:10px;color:var(--gold);margin-bottom:6px;letter-spacing:.08em}
+.r-text{font-size:11px;color:var(--sub);line-height:1.75}
+
+/* ─── CTA ─── */
+.cta{
+  background:linear-gradient(150deg,#0E0B1E,#0A1018);
+  padding:100px 0;text-align:center;
+  border-top:1px solid var(--border);position:relative;overflow:hidden;
+}
+.cta-orb{
+  position:absolute;top:-200px;left:50%;transform:translateX(-50%);
+  width:600px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,168,76,.1) 0%,transparent 65%);
+  pointer-events:none;
+}
+.cta-h{font-size:clamp(28px,4vw,46px);font-weight:900;color:var(--ink);margin-bottom:14px;letter-spacing:-.03em;position:relative;z-index:1}
+.cta-sub{font-size:15px;color:var(--sub);margin-bottom:44px;line-height:1.8;max-width:400px;margin-left:auto;margin-right:auto;position:relative;z-index:1}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:28px;position:relative;z-index:1}
+.btn-main{
+  background:linear-gradient(135deg,var(--gold),var(--gold-dim));
+  color:#000;padding:14px 32px;border-radius:100px;
+  font-size:14px;font-weight:800;text-decoration:none;letter-spacing:.01em;
+  display:inline-flex;align-items:center;gap:7px;
+  box-shadow:0 4px 24px rgba(232,168,76,.25);
+  transition:transform .2s,box-shadow .2s;
+}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(232,168,76,.35)}
+.btn-ghost{
+  background:rgba(255,255,255,.05);color:var(--ink);padding:14px 28px;
+  border-radius:100px;font-size:14px;font-weight:700;text-decoration:none;
+  border:1px solid var(--border-hi);letter-spacing:.01em;
+  transition:background .2s,border-color .2s;
+}
+.btn-ghost:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.18)}
+.cta-contact{font-size:12px;color:var(--sub2);position:relative;z-index:1}
+.cta-contact a{color:var(--sub);font-weight:600;text-decoration:none;transition:color .2s}
+.cta-contact a:hover{color:var(--gold)}
+
+/* ─── FOOTER ─── */
+footer{background:var(--surface);padding:32px 0;border-top:1px solid var(--border)}
+.foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.foot-brand{display:flex;align-items:center;gap:9px;text-decoration:none}
+.foot-icon{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,var(--gold),var(--gold-dim));display:flex;align-items:center;justify-content:center;color:#000;font-size:12px;font-weight:900}
+.foot-name{font-size:14px;font-weight:800;color:var(--ink)}
+.foot-info{font-size:10px;color:var(--sub2);text-align:right;line-height:1.8;letter-spacing:.02em}
+@media(max-width:480px){.foot-info{text-align:left}}
+</style>
 </head>
-<body class="p-4 md:p-10">
+<body>
 
-    <div class="max-w-6xl mx-auto">
-        <header class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div>
-                <div class="flex items-center gap-2 mb-2">
-                    <span class="px-3 py-1 bg-blue-600 text-white rounded-md text-xs font-bold tracking-tight">STRATEGY 2026</span>
-                    <span class="text-slate-400 text-xs font-semibold">INTERNAL REPORT</span>
-                </div>
-                <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">성장지원팀 업무 <span class="gradient-text">마일스톤</span></h1>
-                <p class="text-slate-500 mt-3 text-lg font-medium">전사 KPI 달성 및 BEP 조기 달성을 위한 전략적 로드맵</p>
+<div class="cursor-glow" id="glow"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="#">
+      <div class="nav-icon">⚡</div>
+      <span class="nav-name">SK일렉링크</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#problem">현황 분석</a></li>
+      <li><a href="#solution">다이렉트 플랜</a></li>
+      <li><a href="#savings">절감 효과</a></li>
+      <li><a href="#trust">계약 조건</a></li>
+      <li><a href="#process">진행 절차</a></li>
+      <li><a href="#cta">도입 문의</a></li>
+    </ul>
+    <span class="nav-pill">입대위 제안서 2026</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-orb1"></div>
+  <div class="hero-orb2"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow reveal"><span class="eyebrow-line"></span>입주자대표회의 제안서 · 2026</div>
+        <h1 class="hero-h1 reveal d1">리베이트 없이,<br><em>입주민에게</em><br>혜택이 돌아갑니다</h1>
+        <p class="hero-desc reveal d2">SK일렉링크가 직접 운영하는 다이렉트 채널로<br>기존 영업 수수료를 입주민 혜택으로 전환합니다.</p>
+        <div class="hero-chips reveal d3">
+          <span class="chip"><span class="chip-dot"></span>295원/kWh 5년 동결</span>
+          <span class="chip"><span class="chip-dot"></span>충전기 3기당 CCTV 1대 무상 설치</span>
+          <span class="chip"><span class="chip-dot"></span>보조금 처리 대행</span>
+          <span class="chip"><span class="chip-dot"></span>리베이트 Zero</span>
+        </div>
+        <p class="hero-meta reveal d4">제안일: <b>2026년 3월</b> &nbsp;·&nbsp; 제안사: <b>SK일렉링크 성장지원팀</b></p>
+      </div>
+      <div class="hero-cards">
+        <div class="hcard reveal-r d1">
+          <div class="hcard-label">리베이트 비교</div>
+          <div class="bar-row"><span class="bar-name">기존 구조</span><div class="bar-track"><div class="bar-fill bf-dim" data-w="100"></div></div><span class="bar-val" style="color:var(--red)">100만원</span></div>
+          <div class="bar-row"><span class="bar-name">다이렉트</span><div class="bar-track"><div class="bar-fill bf-gold" data-w="0" style="width:0"></div></div><span class="bar-val" style="color:var(--green)">0원</span></div>
+          <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+            <div style="font-size:11px;color:var(--sub2);margin-bottom:6px">절감된 리베이트 비용의 사용처</div>
+            <div style="display:flex;flex-direction:column;gap:5px">
+              <div style="display:flex;align-items:center;gap:8px;font-size:11px;color:var(--ink)"><span style="color:var(--green);font-weight:800">✓</span>요금 할인 (295원/kWh 고정)</div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:11px;color:var(--ink)"><span style="color:var(--green);font-weight:800">✓</span>충전 크레딧 지급</div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:11px;color:var(--ink)"><span style="color:var(--green);font-weight:800">✓</span>CCTV 무상 설치</div>
             </div>
-            <div class="text-right border-l-4 border-blue-600 pl-4 py-1">
-                <p class="text-slate-800 font-bold text-sm">보고 일자: 2026. 03. 16</p>
-                <p class="text-slate-400 text-xs mt-1">성장지원팀 전략 보고</p>
-            </div>
-        </header>
-
-        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 card">
-                <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 text-2xl shadow-inner">
-                    <i class="fa-solid fa-plug-circle-bolt"></i>
-                </div>
-                <h3 class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">NETWORK 확장</h3>
-                <p class="text-3xl font-black text-slate-900 mb-2">완속 2만기</p>
-                <div class="h-1 w-12 bg-blue-600 rounded-full mb-3"></div>
-                <p class="text-sm text-slate-500 leading-relaxed font-medium">인바운드 채널 고도화 및 고효율 단지 집중 선점 전략</p>
-            </div>
-            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 card">
-                <div class="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-6 text-2xl shadow-inner">
-                    <i class="fa-solid fa-chart-pie"></i>
-                </div>
-                <h3 class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">PROFITABILITY</h3>
-                <p class="text-3xl font-black text-slate-900 mb-2">BEP 달성</p>
-                <div class="h-1 w-12 bg-emerald-500 rounded-full mb-3"></div>
-                <p class="text-sm text-slate-500 leading-relaxed font-medium">Load Shifting 모델을 통한 한전 전력 원가 절감</p>
-            </div>
-            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 card">
-                <div class="w-14 h-14 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mb-6 text-2xl shadow-inner">
-                    <i class="fa-solid fa-microchip"></i>
-                </div>
-                <h3 class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">EFFICIENCY</h3>
-                <p class="text-3xl font-black text-slate-900 mb-2">2X 효율화</p>
-                <div class="h-1 w-12 bg-amber-500 rounded-full mb-3"></div>
-                <p class="text-sm text-slate-500 leading-relaxed font-medium">AI 에이전트 기반 보조금 신청 등 프로세스 자동화</p>
-            </div>
-        </section>
-
-        <section class="bg-white rounded-3xl shadow-sm overflow-hidden mb-8 border border-slate-100">
-            <div class="p-8 md:p-10">
-                <div class="flex items-center gap-4 mb-8">
-                    <div class="px-3 py-1 bg-slate-900 text-white rounded text-sm font-black">01</div>
-                    <h2 class="text-2xl font-black text-slate-800 tracking-tight">채널 다변화 전략: In-bound 채널 구축 및 강화</h2>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-10">
-                    <div class="group">
-                        <h4 class="text-slate-800 font-bold mb-2 flex items-center gap-2">
-                            <span class="w-2 h-2 bg-red-500 rounded-full"></span>
-                            기존 In-bound 채널의 한계 (Pain Point)
-                        </h4>
-                        <p class="text-slate-500 text-sm leading-relaxed pl-4 border-l-2 border-slate-100 group-hover:border-red-200 transition-colors">
-                            전담 조직 부재로 영업사 의존도가 높으며, 주로 설치가 까다롭고 수익성이 낮은 소규모 단지 위주의 신청으로 성공 확률 저조.
-                        </p>
-                    </div>
-                    <div class="group">
-                        <h4 class="text-slate-800 font-bold mb-2 flex items-center gap-2">
-                            <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
-                            시장 기회 및 인바운드 강화
-                        </h4>
-                        <p class="text-slate-500 text-sm leading-relaxed pl-4 border-l-2 border-slate-100 group-hover:border-blue-200 transition-colors">
-                            최근 리베이트 이슈 및 화재 예방 안정성 중시 경향에 따라, 입주민들이 직접 브랜드 사업자를 찾는 <b>다이렉트 채널의 중요성</b> 강화.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-                    <div class="lg:col-span-4">
-                        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 w-fit">
-                            <h4 class="text-slate-900 font-black mb-4 flex items-center gap-2 uppercase tracking-tight italic text-sm">
-                                <i class="fa-solid fa-bullseye text-blue-600"></i> IN-BOUND 채널 고도화 전략
-                            </h4>
-                            <div class="space-y-3">
-                                <div class="flex items-start gap-3">
-                                    <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded mt-0.5 whitespace-nowrap">Step 1</span>
-                                    <p class="text-slate-700 text-sm font-semibold italic whitespace-nowrap">Aura_apt 통한 선별 시스템 구축 <span class="ml-1 text-blue-500 font-bold tracking-tighter">---></span></p>
-                                </div>
-                                <div class="flex items-start gap-3">
-                                    <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded mt-0.5 whitespace-nowrap">Step 2</span>
-                                    <p class="text-slate-700 text-sm font-semibold italic whitespace-nowrap">다이렉트 요금 등 OFFER 기획</p>
-                                </div>
-                                <div class="flex items-start gap-3">
-                                    <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded mt-0.5 whitespace-nowrap">Step 3</span>
-                                    <p class="text-slate-700 text-sm font-semibold italic whitespace-nowrap">Out-bound R&C 강화<br> 및 Landing Page 제작 / 마케팅 실행</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="lg:col-span-5">
-                        <div class="bg-slate-50 p-6 rounded-3xl border border-slate-200 relative">
-                            <div class="absolute -top-3 right-8 bg-white px-4 py-1 border border-slate-200 rounded-full text-[10px] font-black text-slate-400 uppercase tracking-widest shadow-sm">Selective Strategy</div>
-                            <h4 class="font-bold text-slate-800 mb-4 text-center text-sm">Aura_Apt 기반 단지 선별 시스템</h4>
-                            <div class="space-y-3">
-                                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex justify-between items-center group cursor-default hover:border-blue-300 transition-colors">
-                                    <div>
-                                        <span class="text-[9px] font-black text-blue-600 uppercase tracking-tighter">S Grade (수도권/대단지)</span>
-                                        <p class="font-black text-slate-800 text-base">자체 Outbound 집중</p>
-                                    </div>
-                                    <div class="w-8 h-8 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-users-gear"></i></div>
-                                </div>
-                                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex justify-between items-center opacity-60 group cursor-default">
-                                    <div>
-                                        <span class="text-[9px] font-black text-slate-400 uppercase tracking-tighter">B/C Grade (지방/소단지)</span>
-                                        <p class="font-black text-slate-800 text-base">영업대행사 위탁</p>
-                                    </div>
-                                    <div class="w-8 h-8 bg-slate-50 text-slate-400 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-handshake"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="lg:col-span-3 flex justify-center lg:justify-end">
-                        <a href="https://aura-apt.vercel.app/" target="_blank" class="group inline-flex items-center px-6 py-4 bg-blue-600 text-white font-black rounded-2xl hover:bg-blue-700 transition-all shadow-xl shadow-blue-200 text-sm whitespace-nowrap">
-                            Aura_Apt 플랫폼 시연 <i class="fa-solid fa-chevron-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="bg-white rounded-3xl shadow-sm overflow-hidden mb-8 border border-slate-100">
-            <div class="p-8 md:p-10">
-                <div class="flex items-center gap-4 mb-4">
-                    <div class="px-3 py-1 bg-slate-900 text-white rounded text-sm font-black">02</div>
-                    <h2 class="text-2xl font-black text-slate-800 tracking-tight">2X 효율화: 보조금 신청 Process 자동화를 통한 리소스 최적화</h2>
-                </div>
-
-                <div class="mb-10">
-                    <div class="bg-slate-50 p-6 rounded-3xl border border-slate-100 mb-8">
-                        <h4 class="text-slate-800 font-black mb-3 flex items-center gap-2">
-                            <i class="fa-solid fa-triangle-exclamation text-amber-500"></i> 자동화 도입 배경 및 필요성
-                        </h4>
-                        <p class="text-slate-600 text-sm leading-relaxed font-medium">
-                            완속 N/W 확장에 따른 <b>영업사 관리 및 보조금 신청 병목 현상</b> 발생. 목표 기수 <span class="text-blue-600 font-bold">20,000기</span> 달성을 위해서는 기존 방식 대비 획기적인 리소스(시간, 인력) 절감 필수적이라 판단.
-                        </p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 relative">
-                        <div class="hidden md:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full border border-slate-200 items-center justify-center shadow-md">
-                            <i class="fa-solid fa-right-long text-slate-400"></i>
-                        </div>
-
-                        <div class="bg-rose-50/50 rounded-2xl p-6 border border-rose-100 relative overflow-hidden">
-                            <div class="absolute top-0 right-0 px-4 py-1 bg-rose-100 text-rose-600 font-black text-[10px] rounded-bl-xl uppercase">Before (Current)</div>
-                            <h5 class="text-rose-900 font-black mb-4 flex items-center gap-2 text-sm italic">
-                                <i class="fa-solid fa-hand-pointer"></i> Fragmented Manual Process
-                            </h5>
-                            <ul class="space-y-3">
-                                <li class="flex items-start gap-2 text-xs text-rose-800/80 leading-snug">
-                                    <span class="w-1.5 h-1.5 bg-rose-400 rounded-full mt-1.5 shrink-0"></span>
-                                    <span>3명의 직원이 <b>25개 영업사</b> 개별 컨택 (소통 비용 과다)</span>
-                                </li>
-                                <li class="flex items-start gap-2 text-xs text-rose-800/80 leading-snug">
-                                    <span class="w-1.5 h-1.5 bg-rose-400 rounded-full mt-1.5 shrink-0"></span>
-                                    <span>서류 요청/보완 등 <b>수동 검증</b> 및 엑셀 기반 데이터 관리</span>
-                                </li>
-                                <li class="flex items-start gap-2 text-xs text-rose-800/80 leading-snug font-bold">
-                                    <span class="w-1.5 h-1.5 bg-rose-500 rounded-full mt-1.5 shrink-0"></span>
-                                    <span><b>보조금 신청 → 반려 → 재보완 등, </b> Time Loss 발생 (최소 2주 소요)</span>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="bg-blue-50/50 rounded-2xl p-6 border border-blue-100 relative overflow-hidden">
-                            <div class="absolute top-0 right-0 px-4 py-1 bg-blue-600 text-white font-black text-[10px] rounded-bl-xl uppercase italic">After (Automated)</div>
-                            <h5 class="text-blue-900 font-black mb-4 flex items-center gap-2 text-sm italic">
-                                <i class="fa-solid fa-bolt"></i> AI Agent-Led Optimization
-                            </h5>
-                            <ul class="space-y-3">
-                                <li class="flex items-start gap-2 text-xs text-blue-800 leading-snug">
-                                    <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1.5 shrink-0"></span>
-                                    <span><b>Agent 서류 자동 검증</b> 및 보완 메일 초안 작성 > 발송</span>
-                                </li>
-                                <li class="flex items-start gap-2 text-xs text-blue-800 leading-snug">
-                                    <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1.5 shrink-0"></span>
-                                    <span>데이터 자동 추출/ Google sheet 저장 및 <b>환경부 사이트 신청서 자동 작성</b></span>
-                                </li>
-                                <li class="flex items-start gap-2 text-xs text-blue-800 leading-snug font-bold">
-                                    <span class="w-1.5 h-1.5 bg-blue-600 rounded-full mt-1.5 shrink-0"></span>
-                                    <span><b>최종 검증 후 원클릭 신청</b> - Time Loss 획기적 단축</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-slate-900 rounded-3xl p-8 text-white relative overflow-hidden mb-8">
-                    <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
-                        <div class="md:w-1/2">
-                            <h4 class="text-xl font-black mb-6 flex items-center gap-2 uppercase tracking-tight">
-                                <i class="fa-solid fa-chart-line text-blue-400"></i> Total Impact
-                            </h4>
-                            <div class="space-y-4">
-                                <div class="flex justify-between text-sm border-b border-white/10 pb-2">
-                                    <span class="text-slate-400">총 등록 기수</span>
-                                    <span class="font-bold">20,000 기</span>
-                                </div>
-                                <div class="flex justify-between text-sm border-b border-white/10 pb-2">
-                                    <span class="text-slate-400">총 등록 건수</span>
-                                    <span class="font-bold">5,000 건 (단지당 4기)</span>
-                                </div>
-                                <div class="flex justify-between text-sm border-b border-white/10 pb-2">
-                                    <span class="text-slate-400">건당 절감 시간</span>
-                                    <span class="font-bold text-blue-400">30분 (총 150,000분)</span>
-                                </div>
-                                <div class="flex justify-between text-sm border-b border-white/10 pb-2">
-                                    <span class="text-slate-400">총 절감 시간</span>
-                                    <span class="font-bold text-emerald-400">2,625 시간</span>
-                                </div>
-                                <div class="flex justify-between text-sm border-b border-white/10 pb-2">
-                                    <span class="text-slate-400">Human Error로 인한 Time Loss 해결</span>
-                                    <span class="font-bold text-rose-400">건당 2~3주</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="md:w-1/3 bg-white/5 p-6 rounded-2xl backdrop-blur-sm border border-white/10">
-                            <p class="text-center text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Strategic Value</p>
-                            <p class="text-sm leading-relaxed text-slate-300">
-                                반복적인 행정 업무에서 해방된 <b>연간 약 2,625시간</b>의 리소스를 고효율 단지 발굴 및 영업 파트너십 강화와 같은 고부가가치 전략 업무에 집중 재투입.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-                    <div class="lg:col-span-8">
-                        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 w-fit">
-                            <h4 class="text-slate-900 font-black mb-4 flex items-center gap-2 uppercase tracking-tight italic text-sm">
-                                <i class="fa-solid fa-microchip text-amber-500"></i> 자동화 프로세스 로드맵
-                            </h4>
-                            <div class="space-y-3">
-                                <div class="flex items-start gap-3">
-                                    <span class="bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded mt-0.5 whitespace-nowrap">Step 1</span>
-                                    <p class="text-slate-700 text-sm font-semibold italic">완속 보조금 서류 검증 및 업로드 자동화 <span class="ml-1 text-amber-500 font-bold tracking-tighter">-------></span></p>
-                                </div>
-                                <div class="flex items-start gap-3">
-                                    <span class="bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded mt-0.5 whitespace-nowrap">Step 2</span>
-                                    <p class="text-slate-700 text-sm font-semibold italic">환경부 등록 및 관리 자동화 <span class="ml-1 text-amber-500 font-bold tracking-tighter"></span></p>
-                                </div>
-                                <div class="flex items-start gap-3">
-                                    <span class="bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded mt-0.5 whitespace-nowrap">Step 3</span>
-                                    <p class="text-slate-700 text-sm font-semibold italic">추가 자동화 가능 영역 검토 및 적용</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="lg:col-span-4 flex justify-center lg:justify-end">
-                        <a href="http://localhost:8000/" target="_blank" class="group inline-flex items-center px-8 py-4 bg-amber-500 text-white font-black rounded-2xl hover:bg-amber-600 transition-all shadow-xl shadow-amber-100 text-sm whitespace-nowrap">
-                            보조금 신청 자동화 시연 <i class="fa-solid fa-robot ml-3 group-hover:scale-110 transition-transform"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="bg-white rounded-3xl shadow-sm overflow-hidden mb-8 border border-slate-100">
-            <div class="p-8 md:p-10">
-                <div class="flex items-center gap-4 mb-8">
-                    <div class="px-3 py-1 bg-slate-900 text-white rounded text-sm font-black">03</div>
-                    <h2 class="text-2xl font-black text-slate-800 tracking-tight">수익성 극대화: 전력분배(Load Shifting) 모델</h2>
-                </div>
-
-                <div class="bg-emerald-600 rounded-2xl p-6 mb-10 text-white flex flex-col md:flex-row items-center gap-6 shadow-lg shadow-emerald-100">
-                    <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center text-3xl shrink-0"><i class="fa-solid fa-bolt-lightning"></i></div>
-                    <div>
-                        <h4 class="font-black text-xl mb-1 italic">"Data-Driven Cost Reduction"</h4>
-                        <p class="text-emerald-50 opacity-90 text-sm leading-relaxed">
-                            전력 원가가 높은 <b>피크 시간대(17-20시)</b> 충전을 유휴 대기 시간을 활용해 <b>심야 시간</b>으로 시프팅하여 원가 절감.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
-                    <div class="bg-slate-50 p-6 rounded-3xl border border-slate-200">
-                        <h5 class="text-[10px] font-black text-blue-600 uppercase tracking-widest flex items-center gap-2 mb-4">
-                            <i class="fa-solid fa-circle-play"></i> CHARGING START
-                        </h5>
-                        <div class="chart-grid">
-                            <div class="bar bg-blue-300" style="height: 15%;"></div><div class="bar bg-blue-300" style="height: 10%;"></div><div class="bar bg-blue-300" style="height: 8%;"></div><div class="bar bg-blue-300" style="height: 6%;"></div><div class="bar bg-blue-300" style="height: 5%;"></div><div class="bar bg-blue-300" style="height: 5%;"></div><div class="bar bg-blue-300" style="height: 8%;"></div><div class="bar bg-blue-300" style="height: 15%;"></div><div class="bar bg-blue-300" style="height: 20%;"></div><div class="bar bg-blue-300" style="height: 22%;"></div><div class="bar bg-blue-300" style="height: 25%;"></div><div class="bar bg-blue-300" style="height: 25%;"></div><div class="bar bg-blue-300" style="height: 30%;"></div><div class="bar bg-blue-300" style="height: 35%;"></div><div class="bar bg-blue-300" style="height: 45%;"></div><div class="bar bg-blue-400" style="height: 55%;"></div><div class="bar bg-blue-500" style="height: 75%;"></div><div class="bar bg-blue-600 shadow-sm" style="height: 95%;"></div><div class="bar bg-blue-500" style="height: 85%;"></div><div class="bar bg-blue-400" style="height: 80%;"></div><div class="bar bg-blue-300" style="height: 65%;"></div><div class="bar bg-blue-300" style="height: 50%;"></div><div class="bar bg-blue-300" style="height: 35%;"></div><div class="bar bg-blue-300" style="height: 25%;"></div>
-                        </div>
-                        <div class="hour-labels"><span>00시</span><span>06시</span><span>12시</span><span>18시</span><span>23시</span></div>
-                    </div>
-                    <div class="bg-slate-50 p-6 rounded-3xl border border-slate-200">
-                        <h5 class="text-[10px] font-black text-emerald-600 uppercase tracking-widest flex items-center gap-2 mb-4">
-                            <i class="fa-solid fa-circle-check"></i> CHARGING FINISH
-                        </h5>
-                        <div class="chart-grid">
-                            <div class="bar bg-emerald-600 shadow-sm" style="height: 95%;"></div><div class="bar bg-emerald-500" style="height: 85%;"></div><div class="bar bg-emerald-400" style="height: 75%;"></div><div class="bar bg-emerald-300" style="height: 65%;"></div><div class="bar bg-emerald-300" style="height: 55%;"></div><div class="bar bg-emerald-200" style="height: 45%;"></div><div class="bar bg-emerald-200" style="height: 40%;"></div><div class="bar bg-emerald-200" style="height: 38%;"></div><div class="bar bg-emerald-100" style="height: 30%;"></div><div class="bar bg-emerald-100" style="height: 28%;"></div><div class="bar bg-emerald-100" style="height: 28%;"></div><div class="bar bg-emerald-100" style="height: 28%;"></div><div class="bar bg-emerald-100" style="height: 25%;"></div><div class="bar bg-emerald-200" style="height: 32%;"></div><div class="bar bg-emerald-200" style="height: 35%;"></div><div class="bar bg-emerald-300" style="height: 40%;"></div><div class="bar bg-emerald-300" style="height: 45%;"></div><div class="bar bg-emerald-300" style="height: 46%;"></div><div class="bar bg-emerald-300" style="height: 48%;"></div><div class="bar bg-emerald-400" style="height: 55%;"></div><div class="bar bg-emerald-500" style="height: 65%;"></div><div class="bar bg-emerald-500" style="height: 75%;"></div><div class="bar bg-emerald-600" style="height: 85%;"></div><div class="bar bg-emerald-600" style="height: 90%;"></div>
-                        </div>
-                        <div class="hour-labels"><span>00시</span><span>06시</span><span>12시</span><span>18시</span><span>23시</span></div>
-                    </div>
-                    <div class="bg-slate-50 p-6 rounded-3xl border border-slate-200">
-                        <h5 class="text-[10px] font-black text-rose-600 uppercase tracking-widest flex items-center gap-2 mb-4">
-                            <i class="fa-solid fa-circle-xmark"></i> CONNECTOR EXIT
-                        </h5>
-                        <div class="chart-grid">
-                            <div class="bar bg-rose-200" style="height: 8%;"></div><div class="bar bg-rose-200" style="height: 5%;"></div><div class="bar bg-rose-200" style="height: 5%;"></div><div class="bar bg-rose-200" style="height: 8%;"></div><div class="bar bg-rose-300" style="height: 15%;"></div><div class="bar bg-rose-400" style="height: 35%;"></div><div class="bar bg-rose-500" style="height: 75%;"></div><div class="bar bg-rose-600 shadow-sm" style="height: 100%;"></div><div class="bar bg-rose-500" style="height: 90%;"></div><div class="bar bg-rose-400" style="height: 75%;"></div><div class="bar bg-rose-300" style="height: 55%;"></div><div class="bar bg-rose-300" style="height: 40%;"></div><div class="bar bg-rose-300" style="height: 35%;"></div><div class="bar bg-rose-300" style="height: 35%;"></div><div class="bar bg-rose-300" style="height: 32%;"></div><div class="bar bg-rose-300" style="height: 34%;"></div><div class="bar bg-rose-300" style="height: 35%;"></div><div class="bar bg-rose-300" style="height: 35%;"></div><div class="bar bg-rose-300" style="height: 32%;"></div><div class="bar bg-rose-200" style="height: 30%;"></div><div class="bar bg-rose-200" style="height: 25%;"></div><div class="bar bg-rose-200" style="height: 20%;"></div><div class="bar bg-rose-200" style="height: 15%;"></div><div class="bar bg-rose-100" style="height: 10%;"></div>
-                        </div>
-                        <div class="hour-labels"><span>00시</span><span>06시</span><span>12시</span><span>18시</span><span>23시</span></div>
-                    </div>
-                </div>
-
-                <div class="p-8 bg-slate-900 rounded-3xl text-white relative overflow-hidden mb-8">
-                    <div class="flex flex-col md:flex-row gap-8 items-start relative z-10">
-                        <div class="flex-1">
-                            <h4 class="text-xl font-black mb-4 flex items-center gap-3">
-                                <i class="fa-solid fa-magnifying-glass-chart text-blue-400"></i> H2 2025 충전 패턴 분석 및 수익 구조 최적화 인사이트
-                            </h4>
-                            <div class="space-y-4 text-sm text-slate-300 leading-relaxed">
-                                <p>
-                                    2025년 하반기 완속 충전 데이터 <b class="text-white text-base">약 60,000건</b>을 전수 분석한 결과, 전력 소비 패턴이 원가가 높은 피크 타임에 집중되어 있음을 확인.
-                                </p>
-                                <ul class="space-y-2 list-none p-0">
-                                    <li class="flex items-start gap-2">
-                                        <span class="text-blue-400 font-black">●</span>
-                                        <span><b>Peak-in 집중:</b> 퇴근 시간대(18~20시) 충전 개시 후, 중간·최대부하 구간(18~22시)에 집중적으로 전력 소비 발생</span>
-                                    </li>
-                                    <li class="flex items-start gap-2">
-                                        <span class="text-emerald-400 font-black">●</span>
-                                        <span><b>Idle-Connect 상태:</b> 24시 전후 충전 완료 시점부터 출근 시점(06~08시)까지 커넥터가 연결된 상태로 방치되는 '유휴 대기 시간' 발생</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="md:w-1/3 bg-white/10 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
-                            <h5 class="text-xs font-black text-blue-400 uppercase tracking-widest mb-3">Strategic Opportunity</h5>
-                            <p class="text-sm leading-relaxed text-slate-100 font-medium">
-                                전력 원가가 가장 저렴한 <b>경부하 시간대(23시~08시)</b>의 활용도가 매우 낮아, 로드 시프팅 알고리즘 적용 시 <b>에너지 믹스 최적화를 통한 원가 절감 잠재력</b>이 매우 큰 것으로 판단.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="p-6 border-2 border-dashed border-slate-200 rounded-3xl">
-                    <div class="flex flex-col md:flex-row items-center gap-8">
-                        <div class="flex-1">
-                            <h5 class="font-black text-slate-800 mb-2 text-sm">분산 충전 알고리즘 핵심 로직</h5>
-                            <p class="text-xs text-slate-500 leading-relaxed">
-                                분석된 유휴 시간을 활용하여 원가가 40% 이상 저렴한 <span class="text-emerald-600 font-bold">심야 경부하 구간</span>으로 부하를 이전하여 마진 극대화 및 고객 Lock-in을 위한 제원으로 활용.
-                            </p>
-                        </div>
-                        <div class="grid grid-cols-2 gap-4 shrink-0">
-                            <div class="bg-white p-4 rounded-2xl shadow-sm text-center border border-slate-100">
-                                <p class="text-[10px] text-slate-400 font-bold uppercase">Expected Margin</p>
-                                <p class="text-xl font-black text-emerald-600">+15~20%</p>
-                            </div>
-                            <div class="bg-white p-4 rounded-2xl shadow-sm text-center border border-slate-100">
-                                <p class="text-[10px] text-slate-400 font-bold uppercase">Peak Load</p>
-                                <p class="text-xl font-black text-blue-600">-40%</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="bg-white rounded-3xl shadow-sm overflow-hidden mb-12 border border-slate-100">
-            <div class="p-8 md:p-10">
-                <div class="flex items-center gap-4 mb-10">
-                    <div class="px-3 py-1 bg-red-600 text-white rounded text-sm font-black italic">MARKET UPDATE(26.3.13)</div>
-                    <h2 class="text-2xl font-black text-slate-800 tracking-tight">전기요금 체계 개편(4월 16일 적용)에 따른 대응 필요</h2>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                    <div class="rounded-2xl overflow-hidden border border-slate-200 shadow-inner group">
-                        <img src="image_05fc56.jpg" alt="전기요금 개편 뉴스" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    </div>
-
-                    <div class="flex flex-col gap-5">
-                        <div class="p-6 bg-rose-50 rounded-2xl border border-rose-100 card">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span class="w-8 h-8 bg-rose-600 text-white rounded-lg flex items-center justify-center text-xs font-black">T</span>
-                                <h4 class="font-black text-rose-900">THREAT. 피크타임 저녁 이동</h4>
-                            </div>
-                            <p class="text-rose-800 text-sm leading-relaxed font-medium">
-                                기존 낮 시간에서 <b>저녁 15~21시</b>로 최대부하 요금제 변경. <br> 이는 완속 충전 주요 이용 시간대와 직면 충돌하여 비용 리스크를 초래.
-                            </p>
-                        </div>
-
-
-                        <div class="p-6 bg-emerald-50 rounded-2xl border border-emerald-100 card border-2 border-emerald-200">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span class="w-8 h-8 bg-emerald-600 text-white rounded-lg flex items-center justify-center text-xs font-black"><i class="fa-solid fa-star"></i></span>
-                                <h4 class="font-black text-emerald-900">OPPORTUNITY. 주말 골든타임</h4>
-                            </div>
-                            <p class="text-emerald-800 text-sm leading-relaxed font-medium">
-                                봄/가을 주말/공휴일 낮 <b>11~14시 적용 전력 요금 50% 파격 할인</b> 제도 시행. <br> 해당 시간대 원가 절감을 활용한 프로모션 기회 포착.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <footer class="text-center border-t border-slate-200 pt-12 pb-24">
-            <p class="text-slate-400 text-sm font-bold tracking-widest uppercase">Growth Support Team &copy; 2026</p>
-            <p class="text-slate-300 text-xs mt-2 font-medium">Confidential - For Executive Presentation Only</p>
-        </footer>
+          </div>
+        </div>
+        <div class="hcard reveal-r d2">
+          <div class="hcard-label">월 300kWh · 5년 절감 시뮬레이션</div>
+          <div class="hcard-row"><span class="k">현재 시장 요금</span><span class="v">320원/kWh</span></div>
+          <div class="hcard-row"><span class="k">다이렉트 플랜</span><span class="v o">295원/kWh</span></div>
+          <div class="hcard-row"><span class="k">5년 총 절감</span><span class="v g">450,000원</span></div>
+          <div class="hcard-row"><span class="k">충전 크레딧</span><span class="v g">30,000원</span></div>
+        </div>
+      </div>
     </div>
+  </div>
+</section>
 
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 CPO 대응 전략</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Chosen Palette: Corporate Slate with Semantic Accents (Blue, Emerald, Rose, Amber) to match Internal Report style -->
-    <!-- Application Structure Plan: Executive Dashboard styled as an Internal Strategy Report. Section 1 (Tariff Shift) -> Section 2 (24h Load Shifting Simulation using actual data, with Left-Right Split Layout) -> Section 3 (Actionable Strategies via Tabs). Incorporates 'Data-Driven' design language, thick rounded borders, and clean typography. -->
-    <!-- Visualization & Content Choices: 1. Tariff: Grouped Bar Chart to show Peak shift. 2. Impact: 24h Line/Area Chart mapping baseUsage vs shiftedUsage against pricing background zones. Left side handles context and controls, Right side shows the result. 3. Action Plans: Tabbed interface. NO SVG/Mermaid used. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-
-    <style>
-        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-        body { font-family: 'Pretendard', sans-serif; background-color: #f8fafc; color: #0f172a; }
-        .gradient-text { background: linear-gradient(90deg, #2563eb, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .card { transition: all 0.3s ease; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); }
-        .chart-container { position: relative; width: 100%; max-width: 1000px; margin-left: auto; margin-right: auto; height: 350px; max-height: 450px; }
-        @media (min-width: 768px) { .chart-container { height: 400px; } }
-        .tab-btn.active { border-bottom: 4px solid #2563eb; color: #2563eb; font-weight: 900; background-color: #eff6ff; }
-        .smooth-transition { transition: all 0.3s ease-in-out; }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-    </style>
-</head>
-<body class="p-4 md:p-10 antialiased">
-
-    <div class="max-w-6xl mx-auto space-y-12">
-        
-        <!-- Header -->
-        <header class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div>
-                <div class="flex items-center gap-2 mb-2">
-                    <span class="px-3 py-1 bg-blue-600 text-white rounded-md text-xs font-bold tracking-tight">STRATEGY 2026</span>
-                    <span class="text-slate-400 text-xs font-semibold uppercase">INTERNAL REPORT</span>
-                </div>
-                <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">전기요금 개편(4.16) <span class="gradient-text"> 대응 전략</span></h1>
-                <p class="text-slate-500 mt-3 text-lg font-medium">스마트 전력 관리 최적화를 통한 수익성 강화 및 고객 Lock-in </p>
-            </div>
-            <div class="text-right border-l-4 border-blue-600 pl-4 py-1">
-                <p class="text-slate-800 font-bold text-sm">보고 일자: 2026. 03. 16</p>
-                <p class="text-slate-400 text-xs mt-1">시행 예정일: 2026. 04. 16 <span class="text-rose-500 font-bold">(D-31)</span></p>
-            </div>
-        </header>
-
-        <!-- KPI / Threat Summary Cards -->
-        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 card">
-                <div class="w-14 h-14 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center mb-6 text-2xl shadow-inner">
-                    <i class="fa-solid fa-clock-rotate-left"></i>
-                </div>
-                <h3 class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">THREAT</h3>
-                <p class="text-2xl font-black text-slate-900 mb-2">피크타임 저녁 이동</p>
-                <div class="h-1 w-12 bg-rose-500 rounded-full mb-3"></div>
-                <p class="text-sm text-slate-500 leading-relaxed font-medium">기존 낮 시간에서 <b class="text-rose-600">저녁 15~21시</b>로 최대부하 요금제가 변경되어 완속 이용대와 직면 충돌.</p>
-            </div>
-            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 card">
-                <div class="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-6 text-2xl shadow-inner">
-                    <i class="fa-solid fa-sun"></i>
-                </div>
-                <h3 class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">OPPORTUNITY</h3>
-                <p class="text-2xl font-black text-slate-900 mb-2">주말 골든타임</p>
-                <div class="h-1 w-12 bg-emerald-500 rounded-full mb-3"></div>
-                <p class="text-sm text-slate-500 leading-relaxed font-medium">봄/가을 주말 및 공휴일 낮 11~14시 적용 전력 요금 <b class="text-emerald-600">50% 파격 할인</b> 시행.</p>
-            </div>
-        </section>
-
-        <!-- Section 1: Tariff Shift -->
-        <section class="bg-white rounded-3xl shadow-sm overflow-hidden border border-slate-100 p-8 md:p-10">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-                <div class="flex items-center gap-4">
-                    <div class="px-3 py-1 bg-slate-900 text-white rounded text-sm font-black">01</div>
-                    <h2 class="text-2xl font-black text-slate-800 tracking-tight">요금제 개편 핵심 시각화</h2>
-                </div>
-                <div class="flex bg-slate-100 p-1 rounded-xl w-fit">
-                    <button id="btnOldTariff" class="px-6 py-2 rounded-lg text-sm font-bold text-slate-500 smooth-transition focus:outline-none hover:bg-slate-200">개편 前 (현재)</button>
-                    <button id="btnNewTariff" class="px-6 py-2 rounded-lg text-sm font-bold bg-white text-blue-600 shadow-sm smooth-transition focus:outline-none">개편 後 (4/16 적용)</button>
-                </div>
-            </div>
-
-            <div class="bg-slate-50 border border-slate-100 rounded-2xl p-5 mb-6 shadow-inner">
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-xs font-bold text-blue-600 bg-blue-100 px-3 py-1 rounded-full"><i class="fa-solid fa-bolt mr-1"></i> 기준: 여름철 / 고압 선택Ⅱ</span>
-                    <span class="text-xs font-bold text-slate-400">단위: 원/kWh</span>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-                    <div class="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
-                        <p class="text-xs font-bold text-emerald-600 mb-2 flex justify-center items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> 경부하 (22시~08시)</p>
-                        <div class="flex flex-col items-center justify-center gap-1">
-                            <span class="text-emerald-600 font-black text-xl">78.2</span>
-                            <span class="text-slate-400 text-[10px] font-bold bg-slate-100 px-2 py-0.5 rounded-full">요금 동결 / 시간 동일</span>
-                        </div>
-                    </div>
-                    <div class="bg-white p-4 rounded-xl shadow-sm border border-amber-100">
-                        <p class="text-xs font-bold text-amber-600 mb-2 flex justify-center items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-400"></span> 중간부하</p>
-                        <div class="flex flex-col items-center justify-center gap-1">
-                            <span class="text-amber-600 font-black text-xl">113.0</span>
-                            <span class="text-rose-500 text-[10px] font-bold bg-rose-50 px-2 py-0.5 rounded-full">시간대 분산 (08~15시, 21~22시)</span>
-                        </div>
-                    </div>
-                    <div class="bg-white p-4 rounded-xl shadow-sm border border-rose-100 relative overflow-hidden">
-                        <div class="absolute -right-6 top-3 bg-rose-500 text-white text-[9px] font-black px-6 py-0.5 rotate-45 shadow-sm">PEAK</div>
-                        <p class="text-xs font-bold text-rose-600 mb-2 flex justify-center items-center gap-1"><span class="w-2 h-2 rounded-full bg-rose-500"></span> 최대부하</p>
-                        <div class="flex flex-col items-center justify-center gap-1">
-                            <span class="text-rose-600 font-black text-xl">198.6</span>
-                            <span class="text-rose-500 text-[10px] font-bold bg-rose-50 px-2 py-0.5 rounded-full">저녁 집중 (15시~21시)</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="chart-container">
-                <canvas id="tariffChart"></canvas>
-            </div>
-        </section>
-
-        <!-- Section 2: Load Shifting Simulation (Strict Left-Right Layout) -->
-        <section class="bg-white rounded-3xl shadow-sm overflow-hidden border border-slate-100 p-8 md:p-10">
-            <div class="flex items-center gap-4 mb-8">
-                <div class="px-3 py-1 bg-slate-900 text-white rounded text-sm font-black">02</div>
-                <h2 class="text-2xl font-black text-slate-800 tracking-tight">핵심 위협 및 해결책 : 전력 시프팅(Load Shifting)</h2>
-            </div>
-
-            <!-- Grid 레이아웃 적용: 데스크탑 환경에서 정확히 4:8 비율로 좌우 분할 -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
-                
-                <!-- Left Column: Context & Action Flow (4/12 width) -->
-                <div class="lg:col-span-4 flex flex-col justify-between bg-slate-50 p-6 md:p-8 rounded-3xl border border-slate-100">
-                    <div class="space-y-4">
-                        <div class="mb-4">
-                            <h3 class="font-black text-slate-800 text-lg flex items-center gap-2">
-                                <i class="fa-solid fa-microchip text-blue-600"></i> 전략 시나리오
-                            </h3>
-                            <p class="text-xs text-slate-500 mt-1">알고리즘을 통한 충전 스케줄링 최적화</p>
-                        </div>
-
-                        <!-- 현재 상황 -->
-                        <div class="bg-white border border-rose-200 p-5 rounded-2xl shadow-sm relative">
-                            <h4 class="font-black text-rose-700 mb-2 flex items-center gap-2 text-sm">
-                                <i class="fa-solid fa-battery-quarter"></i> 현재 (즉시 충전)
-                            </h4>
-                            <p class="text-xs text-slate-600 leading-relaxed">
-                                고객이 18시에 꽂자마자 충전이 시작되면 최대부하 단가로 전력을 매입 ➔ <span class="font-bold text-rose-600">마진율 급감<br>(원가 65% 상승, 113원 → 198.6원)</span>
-                            </p>
-                        </div>
-                        
-                        <!-- 화살표 (플로 시각화) -->
-                        <div class="flex justify-center -my-3 relative z-10">
-                            <span class="w-8 h-8 bg-blue-600 border-4 border-slate-50 rounded-full flex items-center justify-center text-white text-xs shadow-sm"><i class="fa-solid fa-arrow-down"></i></span>
-                        </div>
-                        
-                        <!-- 목표 상황 -->
-                        <div class="bg-white border border-emerald-200 p-5 rounded-2xl shadow-sm">
-                            <h4 class="font-black text-emerald-700 mb-2 flex items-center gap-2 text-sm">
-                                <i class="fa-solid fa-battery-full"></i> 목표 (전력 시프팅)
-                            </h4>
-                            <p class="text-xs text-slate-600 leading-relaxed">
-                                커넥터를 꽂아두고 대기(Suspended)하다가 저렴해지는 심야(22시 이후)에 집중 충전합니다. ➔ <span class="font-bold text-emerald-600">마진율 개선<br>(원가 30% 하락, 113원 → 78.2원)</span>
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <!-- 시뮬레이션 버튼 (하단 고정) -->
-                    <button id="btnSimulate" class="mt-8 w-full bg-blue-600 text-white font-black py-4 px-4 rounded-2xl shadow-lg shadow-blue-200 hover:bg-blue-700 hover:-translate-y-1 transition-all duration-300 flex justify-center items-center gap-2">
-                        시뮬레이션: 전력 시프팅 적용 <i class="fa-solid fa-plug-circle-bolt ml-1"></i>
-                    </button>
-                </div>
-
-                <!-- Right Column: Chart Result (8/12 width) -->
-                <div class="lg:col-span-8 flex flex-col h-full">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-4 gap-4">
-                        <h5 class="text-sm font-black text-slate-800 uppercase tracking-widest flex items-center gap-2">
-                            <i class="fa-solid fa-chart-area text-blue-600"></i> 24H 충전 사이클 변화 시뮬레이터
-                        </h5>
-                        <div class="flex gap-3">
-                            <div class="bg-emerald-50 px-4 py-2 rounded-xl border border-emerald-100 text-center shadow-sm">
-                                <p class="text-[10px] text-emerald-600/70 font-bold uppercase mb-0.5">Expected Margin</p>
-                                <p class="text-xl font-black text-emerald-600">+30~40%</p>
-                            </div>
-                            <div class="bg-blue-50 px-4 py-2 rounded-xl border border-blue-100 text-center shadow-sm">
-                                <p class="text-[10px] text-blue-600/70 font-bold uppercase mb-0.5">Peak Load Drop</p>
-                                <p class="text-xl font-black text-blue-600">-40%</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="chart-container flex-grow border border-slate-200 rounded-3xl p-4 bg-white shadow-sm w-full h-[350px] md:h-full min-h-[350px]">
-                        <canvas id="impactChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 3: Action Plans -->
-        <section class="bg-white rounded-3xl shadow-sm overflow-hidden border border-slate-100">
-            <div class="p-8 md:p-10 border-b border-slate-100">
-                <div class="flex items-center gap-4 mb-2">
-                    <div class="px-3 py-1 bg-slate-900 text-white rounded text-sm font-black">03</div>
-                    <h2 class="text-2xl font-black text-slate-800 tracking-tight">세부 실행 전략 (Action Plan)</h2>
-                </div>
-                <p class="text-slate-500 text-sm pl-14">소프트웨어 기반 '스마트 전력 관리(Smart Energy Management)' 시스템 구축을 위한 과제</p>
-            </div>
-
-            <div class="flex flex-wrap bg-slate-50 border-b border-slate-200" id="strategyTabs">
-                <button class="tab-btn active flex-1 py-5 px-2 text-center text-slate-500 transition-colors" data-target="strategy1">
-                    <i class="fa-solid fa-code text-xl mb-2 block"></i>
-                    <span class="text-sm font-bold tracking-tight">Tech / UX</span>
-                </button>
-                <button class="tab-btn flex-1 py-5 px-2 text-center text-slate-500 transition-colors" data-target="strategy2">
-                    <i class="fa-solid fa-bullhorn text-xl mb-2 block"></i>
-                    <span class="text-sm font-bold tracking-tight">Marketing</span>
-                </button>
-            </div>
-
-            <div class="p-8 md:p-10 min-h-[300px]">
-                <!-- Tab 1 -->
-                <div id="strategy1" class="tab-content block animate-fade-in">
-                    <h3 class="text-xl font-black text-slate-800 mb-6 flex items-center gap-2">
-                        <span class="w-2 h-2 bg-blue-600 rounded-full"></span> '스마트 예약 충전' 앱 기능 도입
-                    </h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm card">
-                            <h4 class="font-bold text-slate-800 mb-3 text-sm"><i class="fa-solid fa-mobile-screen text-blue-500 mr-2"></i>앱 내 예약 기능 신설</h4>
-                            <p class="text-sm text-slate-500 leading-relaxed">기존 충전 패턴을 기반으로, 앱 내 설정 혹은 커넥터 연결 시 앱 푸시를 통해 "밤 10시 이후 예약 충전 시 10% 추가 혜택"을 즉각 안내하여 시프팅을 유도.</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm card">
-                            <h4 class="font-bold text-slate-800 mb-3 text-sm"><i class="fa-solid fa-server text-emerald-500 mr-2"></i>하드웨어/서버 연동</h4>
-                            <p class="text-sm text-slate-500 leading-relaxed">OCPP 프로토콜을 활용하여 커넥터 체결 상태에서도 전력 송출을 대기(Suspended) 상태로 제어하는 백엔드 로직을 구현 필요.</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm card">
-                            <h4 class="font-bold text-slate-800 mb-3 text-sm"><i class="fa-solid fa-gift text-amber-500 mr-2"></i>리워드 시스템</h4>
-                            <p class="text-sm text-slate-500 leading-relaxed">자발적 전력 시프팅에 동의한 고객에게 절감된 원가의 일부를 크레딧으로 환원하여 강력한 Lock-in 효과 <br> 창출.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tab 2 -->
-                <div id="strategy2" class="tab-content hidden animate-fade-in">
-                    <h3 class="text-xl font-black text-slate-800 mb-6 flex items-center gap-2">
-                        <span class="w-2 h-2 bg-emerald-500 rounded-full"></span> 주말 및 공휴일 '골든 타임' 가동률 극대화(급/완속)
-                    </h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="bg-emerald-50 p-6 rounded-2xl border border-emerald-100">
-                            <h4 class="font-black text-emerald-800 mb-2">1. 선샤인 해피아워 캠페인</h4>
-                            <p class="text-sm text-slate-700 leading-relaxed">3~5월, 9~10월 주말/공휴일 11:00~14:00 충전 고객 대상 단가 20~30% 할인 프로모션. 50% 절감된 원가를 활용해 혜택 제공과 마진 극대화를 동시 달성.</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
-                            <h4 class="font-black text-slate-800 mb-2">2. 타겟 입지 집중 홍보</h4>
-                            <p class="text-sm text-slate-600 leading-relaxed">대형 마트, 아웃렛, 관광지 인근 등 주말, 공휴일 낮 시간대 체류 시간이 긴 자사 충전소 고객에게 알림톡 및 푸시를 집중 발송.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="text-center border-t border-slate-200 pt-8 pb-16">
-            <p class="text-slate-400 text-sm font-bold tracking-widest uppercase">Growth Support Team &copy; 2026</p>
-            <p class="text-slate-300 text-xs mt-2 font-medium">Confidential - For Executive Presentation Only</p>
-        </footer>
-
+<!-- STAT BAR -->
+<div class="stat-bar">
+  <div class="wrap">
+    <div class="stat-grid">
+      <div class="stat-cell"><div class="stat-n reveal">295원</div><div class="stat-l">5년 동결 요금</div></div>
+      <div class="stat-cell"><div class="stat-n reveal d1">3만원</div><div class="stat-l">설치 완료 후 크레딧</div></div>
+      <div class="stat-cell"><div class="stat-n reveal d2">1대</div><div class="stat-l">충전기 3기당 CCTV 무상</div></div>
+      <div class="stat-cell"><div class="stat-n reveal d3">0원</div><div class="stat-l">입주민 초기 부담</div></div>
     </div>
+  </div>
+</div>
 
-    <script>
-        Chart.defaults.font.family = "'Pretendard', sans-serif";
-        Chart.defaults.color = "#64748b";
+<!-- PROBLEM -->
+<section class="section problem" id="problem">
+  <div class="wrap">
+    <div class="sec-hd">
+      <span class="label-tag lt-gold reveal">현황 분석</span>
+      <h2 class="sec-h reveal d1">기존 영업 구조의 문제점</h2>
+      <p class="sec-sub reveal d2">영업 대행사 중심 구조에서 실제 혜택은 입주민에게 돌아오지 않습니다.</p>
+    </div>
+    <div class="prob-grid" style="grid-template-columns:3fr 7fr">
+      <div class="prob-list reveal-l">
+        <div class="prob-card"><span class="prob-ic">💸</span><div><div class="prob-title">과도한 영업 수수료 구조</div><div class="prob-desc">대당 100~120만 원의 영업 수수료가 입주민 혜택이 아닌 영업 채널 비용으로 지출됩니다.</div></div></div>
+        <div class="prob-card"><span class="prob-ic">🔴</span><div><div class="prob-title">리베이트 제공 관행 및 법적 리스크</div><div class="prob-desc">영업사원의 리베이트 제공 관행이 최근 이슈화되며 입대위의 법적·도덕적 리스크가 커지고 있습니다.</div></div></div>
+        <div class="prob-card"><span class="prob-ic">📋</span><div><div class="prob-title">불투명한 계약 조건</div><div class="prob-desc">보조금 규모, 요금 변동 조건, 계약 세부 내용이 영업사원에 의해 선택적으로 전달됩니다.</div></div></div>
 
-        // ==========================================
-        // Chart 1: Tariff Comparison
-        // ==========================================
-        const hours24 = Array.from({length: 24}, (_, i) => `${i < 10 ? '0'+i : i}시`);
-        
-        // 여름철 고압 선택2 기준 실제 요금 (원/kWh) - 요금 자체는 변동 없음
-        // 개편 전: 최대부하 11~12, 13~18. 중간부하 08~11, 12~13, 18~22. 경부하 22~08
-        const oldTariffPrices = [
-            78.2, 78.2, 78.2, 78.2, 78.2, 78.2, 78.2, 78.2, // 00~07 (경부하)
-            113.0, 113.0, 113.0, // 08~10 (중간부하)
-            198.6, // 11 (최대부하)
-            113.0, // 12 (중간부하)
-            198.6, 198.6, 198.6, 198.6, 198.6, // 13~17 (최대부하)
-            113.0, 113.0, 113.0, 113.0, // 18~21 (중간부하)
-            78.2, 78.2 // 22~23 (경부하)
-        ];
-        
-        // 개편 후: 최대부하 15~21. 중간부하 08~15, 21~22. 경부하 22~08
-        const newTariffPrices = [
-            78.2, 78.2, 78.2, 78.2, 78.2, 78.2, 78.2, 78.2, // 00~07 (경부하)
-            113.0, 113.0, 113.0, 113.0, 113.0, 113.0, 113.0, // 08~14 (중간부하)
-            198.6, 198.6, 198.6, 198.6, 198.6, 198.6, // 15~20 (최대부하)
-            113.0, // 21 (중간부하)
-            78.2, 78.2 // 22~23 (경부하)
-        ];
+      </div>
+      <div class="flow-box reveal-r" style="padding:0;overflow:hidden;align-self:stretch">
+        <!-- 가로 비교 레이아웃 -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;height:100%">
+          <!-- 기존 구조 -->
+          <div style="padding:22px 20px;border-right:1px solid var(--border)">
+            <div class="fgl fgl-red" style="margin-bottom:14px">🔴 기존 영업 대행 구조</div>
+            <div class="flow-item"><span class="flow-num fn-dim">1</span>SK일렉링크</div>
+            <div class="flow-arr">↓</div>
+            <div class="flow-item hi-red"><span class="flow-num fn-red">2</span>영업 대행사<span class="flow-badge fb-red" style="font-size:9px">수수료 120만원/대</span></div>
+            <div class="flow-arr">↓</div>
+            <div class="flow-item hi-red"><span class="flow-num fn-red">3</span>관리소장 / 입대위<span class="flow-badge fb-red" style="font-size:9px">리베이트 수수</span></div>
+            <div class="flow-arr">↓</div>
+            <div class="flow-item" style="opacity:.5"><span class="flow-num fn-dim">4</span>입주민 (혜택 없음)</div>
+          </div>
+          <!-- 다이렉트 구조 -->
+          <div style="padding:22px 20px">
+            <div class="fgl fgl-green" style="margin-bottom:14px">✅ SK일렉링크 다이렉트 구조</div>
+            <div class="flow-item hi-green"><span class="flow-num fn-green">1</span>SK일렉링크 다이렉트 채널</div>
+            <div class="flow-arr">↓</div>
+            <div class="flow-item hi-green"><span class="flow-num fn-green">2</span>입주민 직접 신청 (인바운드)</div>
+            <div class="flow-arr">↓</div>
+            <div class="flow-item hi-green"><span class="flow-num fn-green">3</span>입대위 투명 계약 체결<span class="flow-badge fb-green" style="font-size:9px">리베이트 Zero</span></div>
+            <div class="flow-arr">↓</div>
+            <div class="flow-item hi-green"><span class="flow-num fn-green">4</span><strong style="font-size:12px">입주민에게 혜택 직접 환원</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        const getColorForPrice = (price) => {
-            if(price < 100) return 'rgba(52, 211, 153, 0.9)'; // Emerald (경부하)
-            if(price < 150) return 'rgba(251, 191, 36, 0.9)'; // Amber (중간부하)
-            return 'rgba(244, 63, 94, 0.9)'; // Rose (최대부하)
-        };
+<!-- BENEFITS -->
+<section class="section benefits" id="solution">
+  <div class="wrap">
+    <div class="sec-hd tc">
+      <span class="label-tag lt-gold reveal">다이렉트 플랜</span>
+      <h2 class="sec-h reveal d1">입대위와 입주민, 모두를 위한 혜택</h2>
+      <p class="sec-sub reveal d2">영업 비용을 줄이고, 아낀 비용을 세 가지 혜택으로 나눠드립니다.</p>
+    </div>
+    <div class="ben-grid">
+      <div class="ben-card featured reveal d1">
+        <div class="ben-icon">💰</div>
+        <div class="ben-title">요금 5년 동결</div>
+        <div class="ben-val">295원<span class="unit">/kWh</span></div>
+        <p class="ben-desc">시장 평균(320원) 대비 낮은 요금을 5년간 고정합니다. 한전 원가 20% 초과 상승 시에만 협의 조정됩니다.</p>
+        <ul class="ben-list"><li>월 300kWh 기준 연 9만 원 절감</li><li>5년 총 45만 원 절감</li><li>일방적 요금 인상 없음</li></ul>
+      </div>
+      <div class="ben-card reveal d2">
+        <div class="ben-icon">🎁</div>
+        <div class="ben-title">충전 크레딧</div>
+        <div class="ben-val" style="color:var(--green)">3만원</div>
+        <p class="ben-desc">설치 완료 후 SK일렉링크 앱을 통해 충전 크레딧이 자동 지급됩니다.</p>
+        <ul class="ben-list"><li>설치 완료 즉시 앱 자동 지급</li><li>단지 내 EV 오너 전체 크레딧 공유</li><li>다음 충전 시 바로 사용 가능</li></ul>
+      </div>
+      <div class="ben-card reveal d3">
+        <div class="ben-icon">📷</div>
+        <div class="ben-title">CCTV 무상 설치</div>
+        <div class="ben-val" style="color:var(--green)">3기당 1대<span class="unit"> 무상</span></div>
+        <p class="ben-desc">지하주차장 충전 구역 화재 예방을 위한 CCTV를 충전기 3기당 1대씩 설치 비용 없이 제공합니다.</p>
+        <ul class="ben-list"><li>설치 비용 전액 SK일렉링크 부담</li><li>충전기 3기 설치 시 CCTV 1대 제공</li><li>단지 안전 인프라 강화</li></ul>
+      </div>
+    </div>
+    <div class="extra-banner reveal">
+      <div class="extra-ic">🏛️</div>
+      <div class="extra-body">
+        <div class="extra-title">환경부 보조금 신청·처리 전담 대행</div>
+        <div class="extra-desc">복잡한 보조금 신청 서류와 행정 처리를 SK일렉링크가 전담합니다. 초기 설치 비용을 최소화할 수 있습니다.</div>
+      </div>
+      <div class="extra-badge"><div class="el">보조금 처리</div><div class="ev">대행</div><div class="es">서류·행정 전담</div></div>
+    </div>
+  </div>
+</section>
 
-        const ctx1 = document.getElementById('tariffChart').getContext('2d');
-        let tariffChart = new Chart(ctx1, {
-            type: 'bar',
-            data: {
-                labels: hours24,
-                datasets: [{
-                    label: '전력량 요금 (원/kWh)',
-                    data: newTariffPrices,
-                    backgroundColor: newTariffPrices.map(getColorForPrice),
-                    borderRadius: 4,
-                    barPercentage: 0.8
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: '#1e293b',
-                        padding: 10,
-                        callbacks: {
-                            label: function(context) {
-                                const price = context.raw;
-                                let label = '';
-                                if(price < 100) label = ' 경부하';
-                                else if(price < 150) label = ' 중간부하';
-                                else label = ' 최대부하';
-                                return `${label}: ${price.toFixed(1)} 원/kWh`;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        display: true,
-                        beginAtZero: true,
-                        max: 250,
-                        title: { display: true, text: '요금 단가 (원/kWh)' }
-                    },
-                    x: {
-                        grid: { display: false },
-                        ticks: { maxTicksLimit: 12 }
-                    }
-                },
-                animation: { duration: 400 }
-            }
-        });
+<!-- RATE CHART -->
+<section class="section" style="background:var(--bg);padding-bottom:0" id="savings">
+  <div class="wrap">
+    <div class="sec-hd tc">
+      <span class="label-tag lt-gold reveal">요금 동결 임팩트</span>
+      <h2 class="sec-h reveal d1">5년간 요금이 오르지 않는다는 것의 의미</h2>
+      <p class="sec-sub reveal d2">타사는 2년 주기로 요금을 인상합니다. SK일렉링크 다이렉트는 계약 기간 내 295원을 고정합니다.</p>
+    </div>
+    <div class="reveal" style="background:var(--surface);border:1px solid var(--border-hi);border-radius:var(--r-lg);overflow:hidden">
+      <!-- chart header -->
+      <div style="padding:28px 32px 0;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px">
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px">충전 요금 추이 비교 (원/kWh)</div>
+          <div style="font-size:11px;color:var(--sub2)">월 300kWh 사용 기준 · 계약 1년차~5년차</div>
+        </div>
+        <div style="display:flex;gap:18px;align-items:center">
+          <div style="display:flex;align-items:center;gap:7px;font-size:11px;color:var(--sub)">
+            <span style="display:inline-block;width:24px;height:2px;background:var(--red);border-radius:2px"></span>타사 예상
+          </div>
+          <div style="display:flex;align-items:center;gap:7px;font-size:11px;color:var(--sub)">
+            <span style="display:inline-block;width:24px;height:2px;background:var(--gold);border-radius:2px"></span>SK일렉링크 다이렉트
+          </div>
+        </div>
+      </div>
+      <!-- SVG chart -->
+      <div style="padding:20px 32px 28px">
+        <svg id="rateChart" viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block">
+          <defs>
+            <linearGradient id="gRed" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FF5757" stop-opacity="0.2"/>
+              <stop offset="100%" stop-color="#FF5757" stop-opacity="0.01"/>
+            </linearGradient>
+            <linearGradient id="gGold" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#E8A84C" stop-opacity="0.15"/>
+              <stop offset="100%" stop-color="#E8A84C" stop-opacity="0.01"/>
+            </linearGradient>
+          </defs>
 
-        const btnOld = document.getElementById('btnOldTariff');
-        const btnNew = document.getElementById('btnNewTariff');
+          <!-- y축 라벨 & 그리드 : minY=240 maxY=440, cH=180, top=20 -->
+          <!-- y = 20 + 180 - (v-240)/(440-240)*180 -->
+          <!-- 260 → y=20+180-18=182, 300→y=20+180-54=146, 340→y=20+180-90=110, 380→y=20+180-126=74, 420→y=20+180-162=38 -->
+          <line x1="52" y1="38"  x2="780" y2="38"  stroke="rgba(255,255,255,.06)" stroke-width="1" stroke-dasharray="4 4"/>
+          <line x1="52" y1="74"  x2="780" y2="74"  stroke="rgba(255,255,255,.06)" stroke-width="1" stroke-dasharray="4 4"/>
+          <line x1="52" y1="110" x2="780" y2="110" stroke="rgba(255,255,255,.06)" stroke-width="1" stroke-dasharray="4 4"/>
+          <line x1="52" y1="146" x2="780" y2="146" stroke="rgba(255,255,255,.06)" stroke-width="1" stroke-dasharray="4 4"/>
+          <line x1="52" y1="182" x2="780" y2="182" stroke="rgba(255,255,255,.06)" stroke-width="1" stroke-dasharray="4 4"/>
 
-        const setTabActive = (active, inactive) => {
-            active.classList.add('bg-white', 'text-blue-600', 'shadow-sm');
-            active.classList.remove('text-slate-500', 'hover:bg-slate-200');
-            inactive.classList.remove('bg-white', 'text-blue-600', 'shadow-sm');
-            inactive.classList.add('text-slate-500', 'hover:bg-slate-200');
-        };
+          <text x="44" y="42"  fill="rgba(240,240,245,.3)" font-size="11" text-anchor="end">420원</text>
+          <text x="44" y="78"  fill="rgba(240,240,245,.3)" font-size="11" text-anchor="end">380원</text>
+          <text x="44" y="114" fill="rgba(240,240,245,.3)" font-size="11" text-anchor="end">340원</text>
+          <text x="44" y="150" fill="rgba(240,240,245,.3)" font-size="11" text-anchor="end">300원</text>
+          <text x="44" y="186" fill="rgba(240,240,245,.3)" font-size="11" text-anchor="end">260원</text>
 
-        btnOld.addEventListener('click', () => {
-            setTabActive(btnOld, btnNew);
-            tariffChart.data.datasets[0].data = oldTariffPrices;
-            tariffChart.data.datasets[0].backgroundColor = oldTariffPrices.map(getColorForPrice);
-            tariffChart.update();
-        });
+          <!-- x 좌표: 1년=52+0*182=52, 2년=234, 3년=416, 4년=598, 5년=780 -->
+          <!-- 타사: 320,320,360,360,400 -->
+          <!-- 320→y=20+180-(320-240)/200*180=20+180-72=128 -->
+          <!-- 360→y=20+180-108=92 -->
+          <!-- 400→y=20+180-144=56 -->
+          <!-- skel: 295→y=20+180-(295-240)/200*180=20+180-49.5=150.5 -->
 
-        btnNew.addEventListener('click', () => {
-            setTabActive(btnNew, btnOld);
-            tariffChart.data.datasets[0].data = newTariffPrices;
-            tariffChart.data.datasets[0].backgroundColor = newTariffPrices.map(getColorForPrice);
-            tariffChart.update();
-        });
+          <!-- 타사 fill -->
+          <polygon points="52,128 234,128 416,92 598,92 780,56 780,200 52,200"
+            fill="url(#gRed)"/>
+          <!-- skel fill -->
+          <polygon points="52,150 234,150 416,150 598,150 780,150 780,200 52,200"
+            fill="url(#gGold)"/>
 
-        // ==========================================
-        // Chart 2: 24H Load Shifting Simulation
-        // ==========================================
-        
-        // Base Data
-        const baseUsage = [15, 10, 8, 6, 5, 5, 8, 15, 20, 22, 25, 25, 30, 35, 45, 55, 75, 95, 85, 80, 65, 50, 35, 25];
-        // Shifted Target Data
-        const shiftedUsage = [95, 85, 75, 65, 55, 45, 40, 38, 30, 28, 28, 28, 25, 32, 35, 40, 45, 46, 48, 55, 65, 75, 85, 90];
-        
-        // Pricing zones for background coloring. Base multiplier is 35 to match 100% scale.
-        const tariffZones = [1,1,1,1,1,1,1,1, 2,2,2,2,2,2,2, 3,3,3,3,3,3, 2, 1,1];
-        const bgPricingZone = tariffZones.map(v => v * 35);
+          <!-- 타사 line -->
+          <polyline points="52,128 234,128 416,92 598,92 780,56"
+            fill="none" stroke="#FF5757" stroke-width="2.5" stroke-linejoin="round"/>
+          <!-- skel line -->
+          <polyline points="52,150 234,150 416,150 598,150 780,150"
+            fill="none" stroke="#E8A84C" stroke-width="2.5" stroke-linejoin="round"/>
 
-        const ctx2 = document.getElementById('impactChart').getContext('2d');
-        let impactChart = new Chart(ctx2, {
-            type: 'bar',
-            data: {
-                labels: hours24,
-                datasets: [
-                    {
-                        type: 'line',
-                        label: '충전 진행 비율 (%)',
-                        data: baseUsage,
-                        borderColor: '#2563eb', // blue-600
-                        backgroundColor: 'rgba(37, 99, 235, 0.15)',
-                        borderWidth: 3,
-                        fill: true,
-                        tension: 0.4,
-                        yAxisID: 'y',
-                        pointRadius: 0,
-                        pointHoverRadius: 5
-                    },
-                    {
-                        type: 'bar',
-                        label: '전력 요금 단가 구간',
-                        data: bgPricingZone,
-                        backgroundColor: tariffZones.map(level => { // Fixed reference error here
-                            if(level === 3) return 'rgba(244, 63, 94, 0.15)'; // Rose faint
-                            if(level === 2) return 'rgba(251, 191, 36, 0.1)'; // Amber faint
-                            if(level === 1) return 'rgba(52, 211, 153, 0.05)'; // Emerald very faint
-                        }),
-                        barPercentage: 1.0,
-                        categoryPercentage: 1.0,
-                        yAxisID: 'y1'
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                interaction: { mode: 'index', intersect: false },
-                plugins: {
-                    legend: {
-                        labels: { filter: (item) => item.text !== '전력 요금 단가 구간', font: { weight: 'bold' } }
-                    },
-                    tooltip: {
-                        backgroundColor: '#1e293b',
-                        padding: 10,
-                        callbacks: {
-                            label: function(context) {
-                                if (context.dataset.type === 'bar') {
-                                    const val = context.raw / 35;
-                                    let zone = '';
-                                    if(val===3) zone = '최대부하 (원가 최고)';
-                                    if(val===2) zone = '중간부하';
-                                    if(val===1) zone = '경부하 (원가 최저)';
-                                    return `구간 정보: ${zone}`;
-                                }
-                                return `${context.dataset.label}: ${context.raw}%`;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        type: 'linear', display: true, position: 'left',
-                        max: 100, min: 0,
-                        grid: { borderDash: [4, 4], color: '#e2e8f0' }
-                    },
-                    y1: {
-                        type: 'linear', display: false, position: 'right',
-                        max: 120, min: 0
-                    },
-                    x: {
-                        grid: { display: false },
-                        ticks: { maxTicksLimit: 12 }
-                    }
-                }
-            }
-        });
+          <!-- 타사 dots + 라벨 (위) -->
+          <circle cx="52"  cy="128" r="4.5" fill="#FF5757" stroke="rgba(8,8,16,.9)" stroke-width="1.5"/>
+          <circle cx="234" cy="128" r="4.5" fill="#FF5757" stroke="rgba(8,8,16,.9)" stroke-width="1.5"/>
+          <circle cx="416" cy="92"  r="4.5" fill="#FF5757" stroke="rgba(8,8,16,.9)" stroke-width="1.5"/>
+          <circle cx="598" cy="92"  r="4.5" fill="#FF5757" stroke="rgba(8,8,16,.9)" stroke-width="1.5"/>
+          <circle cx="780" cy="56"  r="4.5" fill="#FF5757" stroke="rgba(8,8,16,.9)" stroke-width="1.5"/>
 
-        // Simulation Button
-        const btnSimulate = document.getElementById('btnSimulate');
-        let isShifted = false;
+          <text x="52"  y="114" fill="#FF5757" font-size="11" font-weight="700" text-anchor="middle">320원</text>
+          <text x="234" y="114" fill="#FF5757" font-size="11" font-weight="700" text-anchor="middle">320원</text>
+          <text x="416" y="78"  fill="#FF5757" font-size="11" font-weight="700" text-anchor="middle">360원</text>
+          <text x="598" y="78"  fill="#FF5757" font-size="11" font-weight="700" text-anchor="middle">360원</text>
+          <text x="780" y="42"  fill="#FF5757" font-size="11" font-weight="700" text-anchor="middle">400원</text>
 
-        btnSimulate.addEventListener('click', () => {
-            isShifted = !isShifted;
-            if(isShifted) {
-                // Apply Shift
-                impactChart.data.datasets[0].data = shiftedUsage;
-                impactChart.data.datasets[0].borderColor = '#10b981'; // emerald-500
-                impactChart.data.datasets[0].backgroundColor = 'rgba(16, 185, 129, 0.15)';
-                impactChart.data.datasets[0].label = '시프팅 적용 비율 (심야 집중)';
-                
-                btnSimulate.innerHTML = '원래 패턴으로 복구 <i class="fa-solid fa-rotate-left ml-1"></i>';
-                btnSimulate.classList.replace('bg-blue-600', 'bg-emerald-600');
-                btnSimulate.classList.replace('hover:bg-blue-700', 'hover:bg-emerald-700');
-                btnSimulate.classList.replace('shadow-blue-200', 'shadow-emerald-200');
-            } else {
-                // Revert to Base
-                impactChart.data.datasets[0].data = baseUsage;
-                impactChart.data.datasets[0].borderColor = '#2563eb';
-                impactChart.data.datasets[0].backgroundColor = 'rgba(37, 99, 235, 0.15)';
-                impactChart.data.datasets[0].label = '충전 진행 비율 (%)';
-                
-                btnSimulate.innerHTML = '시뮬레이션: 전력 시프팅 적용 <i class="fa-solid fa-plug-circle-bolt ml-1"></i>';
-                btnSimulate.classList.replace('bg-emerald-600', 'bg-blue-600');
-                btnSimulate.classList.replace('hover:bg-emerald-700', 'hover:bg-blue-700');
-                btnSimulate.classList.replace('shadow-emerald-200', 'shadow-blue-200');
-            }
-            impactChart.update();
-        });
+          <!-- skel dots + 라벨 (아래) -->
+          <circle cx="52"  cy="150" r="4.5" fill="#E8A84C" stroke="rgba(8,8,16,.9)" stroke-width="1.5"/>
+          <circle cx="234" cy="150" r="4.5" fill="#E8A84C" stroke="rgba(8,8,16,.9)" stroke-width="1.5"/>
+          <circle cx="416" cy="150" r="4.5" fill="#E8A84C" stroke="rgba(8,8,16,.9)" stroke-width="1.5"/>
+          <circle cx="598" cy="150" r="4.5" fill="#E8A84C" stroke="rgba(8,8,16,.9)" stroke-width="1.5"/>
+          <circle cx="780" cy="150" r="4.5" fill="#E8A84C" stroke="rgba(8,8,16,.9)" stroke-width="1.5"/>
 
-        // ==========================================
-        // Tab Navigation
-        // ==========================================
-        const tabBtns = document.querySelectorAll('.tab-btn');
-        const tabContents = document.querySelectorAll('.tab-content');
+          <text x="52"  y="167" fill="#E8A84C" font-size="11" font-weight="700" text-anchor="middle">295원</text>
+          <text x="234" y="167" fill="#E8A84C" font-size="11" font-weight="700" text-anchor="middle">295원</text>
+          <text x="416" y="167" fill="#E8A84C" font-size="11" font-weight="700" text-anchor="middle">295원</text>
+          <text x="598" y="167" fill="#E8A84C" font-size="11" font-weight="700" text-anchor="middle">295원</text>
+          <text x="780" y="167" fill="#E8A84C" font-size="11" font-weight="700" text-anchor="middle">295원</text>
 
-        tabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                tabBtns.forEach(b => {
-                    b.classList.remove('active', 'border-b-4', 'border-blue-600', 'bg-blue-50', 'text-blue-600');
-                    b.querySelector('span').classList.remove('font-black');
-                });
-                tabContents.forEach(c => c.classList.add('hidden'));
+          <!-- x축 라벨 -->
+          <text x="52"  y="218" fill="rgba(240,240,245,.32)" font-size="11" text-anchor="middle">1년차</text>
+          <text x="234" y="218" fill="rgba(240,240,245,.32)" font-size="11" text-anchor="middle">2년차</text>
+          <text x="416" y="218" fill="rgba(240,240,245,.32)" font-size="11" text-anchor="middle">3년차</text>
+          <text x="598" y="218" fill="rgba(240,240,245,.32)" font-size="11" text-anchor="middle">4년차</text>
+          <text x="780" y="218" fill="rgba(240,240,245,.32)" font-size="11" text-anchor="middle">5년차</text>
+        </svg>
+      </div>
+      <!-- bottom callout -->
+      <div style="border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr)">
+        <div style="padding:18px 22px;border-right:1px solid var(--border);text-align:center">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sub2);margin-bottom:6px">SK일렉링크 5년 요금</div>
+          <div style="font-size:22px;font-weight:900;color:var(--gold)">295원</div>
+          <div style="font-size:11px;color:var(--sub2);margin-top:2px">변동 없음</div>
+        </div>
+        <div style="padding:18px 22px;border-right:1px solid var(--border);text-align:center">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sub2);margin-bottom:6px">타사 5년차 요금</div>
+          <div style="font-size:22px;font-weight:900;color:var(--red)">400원~</div>
+          <div style="font-size:11px;color:var(--sub2);margin-top:2px">2년마다 인상</div>
+        </div>
+        <div style="padding:18px 22px;text-align:center">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sub2);margin-bottom:6px">5년 총 절감 (300kWh/월)</div>
+          <div style="font-size:22px;font-weight:900;color:var(--green)">+720,000원</div>
+          <div style="font-size:11px;color:var(--sub2);margin-top:2px">타사 대비 누적 차이</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-                btn.classList.add('active', 'border-b-4', 'border-blue-600', 'bg-blue-50', 'text-blue-600');
-                btn.querySelector('span').classList.add('font-black');
-                
-                const targetId = btn.getAttribute('data-target');
-                document.getElementById(targetId).classList.remove('hidden');
-            });
-        });
+<!-- CALC -->
+<section class="section calc-sec" id="calc">
+  <div class="wrap">
+    <div class="sec-hd tc">
+      <span class="label-tag lt-gold reveal">절감 효과 분석</span>
+      <h2 class="sec-h reveal d1">숫자로 보는 절감 효과</h2>
+      <p class="sec-sub reveal d2">충전 사용량에 따른 절감 효과를 직접 확인하세요.</p>
+    </div>
+    <div class="calc-box reveal">
+      <div class="calc-head">
+        <div class="calc-head-title">요금 비교 계산기</div>
+        <div class="calc-head-sub">시장 평균 320원 기준 | 다이렉트 플랜 295원 적용</div>
+      </div>
+      <div class="calc-body">
+        <div class="tabs">
+          <button class="tab on" onclick="showTab('200',this)">월 200kWh</button>
+          <button class="tab" onclick="showTab('300',this)">월 300kWh</button>
+          <button class="tab" onclick="showTab('500',this)">월 500kWh</button>
+        </div>
+        <div class="calc-panel on" id="p200">
+          <div class="calc-cols">
+            <div class="cmp-stack">
+              <div class="cmp-row"><div><div class="cmp-label">기존 시장 요금 (320원)</div><div class="cmp-sub2">월 200kWh × 320원</div></div><div class="cmp-price">64,000원</div></div>
+              <div class="cmp-vs">vs</div>
+              <div class="cmp-row active"><div><div class="cmp-label">SK일렉링크 다이렉트 (295원)</div><div class="cmp-sub2">월 200kWh × 295원 · 5년 고정</div></div><div class="cmp-price">59,000원</div></div>
+            </div>
+            <div class="sv-card">
+              <div class="sv-label">5년 총 절감액</div><div class="sv-amount">300,000원</div><div class="sv-period">월 200kWh 기준</div>
+              <div class="sv-row"><span class="sk">월 절감</span><span class="sv g">5,000원</span></div>
+              <div class="sv-row"><span class="sk">연간 절감</span><span class="sv g">60,000원</span></div>
+              <div class="sv-row"><span class="sk">5년 절감</span><span class="sv g">300,000원</span></div>
+              <div class="sv-row"><span class="sk">+ 충전 크레딧</span><span class="sv g">30,000원</span></div>
+              <div class="sv-row" style="margin-top:6px"><span class="sk" style="color:var(--ink);font-weight:700">총 혜택</span><span class="sv g" style="font-size:15px">330,000원</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="calc-panel" id="p300">
+          <div class="calc-cols">
+            <div class="cmp-stack">
+              <div class="cmp-row"><div><div class="cmp-label">기존 시장 요금 (320원)</div><div class="cmp-sub2">월 300kWh × 320원</div></div><div class="cmp-price">96,000원</div></div>
+              <div class="cmp-vs">vs</div>
+              <div class="cmp-row active"><div><div class="cmp-label">SK일렉링크 다이렉트 (295원)</div><div class="cmp-sub2">월 300kWh × 295원 · 5년 고정</div></div><div class="cmp-price">88,500원</div></div>
+            </div>
+            <div class="sv-card">
+              <div class="sv-label">5년 총 절감액</div><div class="sv-amount">450,000원</div><div class="sv-period">월 300kWh 기준</div>
+              <div class="sv-row"><span class="sk">월 절감</span><span class="sv g">7,500원</span></div>
+              <div class="sv-row"><span class="sk">연간 절감</span><span class="sv g">90,000원</span></div>
+              <div class="sv-row"><span class="sk">5년 절감</span><span class="sv g">450,000원</span></div>
+              <div class="sv-row"><span class="sk">+ 충전 크레딧</span><span class="sv g">30,000원</span></div>
+              <div class="sv-row" style="margin-top:6px"><span class="sk" style="color:var(--ink);font-weight:700">총 혜택</span><span class="sv g" style="font-size:15px">480,000원</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="calc-panel" id="p500">
+          <div class="calc-cols">
+            <div class="cmp-stack">
+              <div class="cmp-row"><div><div class="cmp-label">기존 시장 요금 (320원)</div><div class="cmp-sub2">월 500kWh × 320원</div></div><div class="cmp-price">160,000원</div></div>
+              <div class="cmp-vs">vs</div>
+              <div class="cmp-row active"><div><div class="cmp-label">SK일렉링크 다이렉트 (295원)</div><div class="cmp-sub2">월 500kWh × 295원 · 5년 고정</div></div><div class="cmp-price">147,500원</div></div>
+            </div>
+            <div class="sv-card">
+              <div class="sv-label">5년 총 절감액</div><div class="sv-amount">750,000원</div><div class="sv-period">월 500kWh 기준</div>
+              <div class="sv-row"><span class="sk">월 절감</span><span class="sv g">12,500원</span></div>
+              <div class="sv-row"><span class="sk">연간 절감</span><span class="sv g">150,000원</span></div>
+              <div class="sv-row"><span class="sk">5년 절감</span><span class="sv g">750,000원</span></div>
+              <div class="sv-row"><span class="sk">+ 충전 크레딧</span><span class="sv g">30,000원</span></div>
+              <div class="sv-row" style="margin-top:6px"><span class="sk" style="color:var(--ink);font-weight:700">총 혜택</span><span class="sv g" style="font-size:15px">780,000원</span></div>
+            </div>
+          </div>
+        </div>
+        <p class="calc-note">* 시장 평균 320원/kWh 기준. 한전 원가 현재 대비 20% 초과 상승 시 협의 조정 가능.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-        // CSS Animation Injection
-        const style = document.createElement('style');
-        style.textContent = `
-            .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
-            @keyframes fadeIn {
-                from { opacity: 0; transform: translateY(5px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-        `;
-        document.head.appendChild(style);
+<!-- TRUST -->
+<section class="section trust" id="trust">
+  <div class="wrap">
+    <div class="sec-hd">
+      <span class="label-tag lt-green reveal">투명한 계약</span>
+      <h2 class="sec-h reveal d1">입대위가 안심할 수 있는<br>계약 조건을 약속합니다</h2>
+      <p class="sec-sub reveal d2">리베이트 없는 클린 계약으로 법적·도덕적 리스크를 제거합니다.</p>
+    </div>
+    <div class="trust-grid" style="align-items:stretch">
+      <div class="trust-list reveal-l" style="align-self:stretch">
+        <div class="trust-card"><div class="trust-chk">✓</div><div><div class="trust-title">리베이트 제공 없음</div><div class="trust-desc">영업 수수료를 관리소장·입대위원에게 제공하지 않습니다. 절감된 비용은 전액 입주민 혜택으로 전환됩니다.</div></div></div>
+        <div class="trust-card"><div class="trust-chk">✓</div><div><div class="trust-title">보조금 내역 계약서 명시</div><div class="trust-desc">환경부 보조금 수령 금액과 사용 내역을 계약서에 투명하게 기재합니다.</div></div></div>
+        <div class="trust-card"><div class="trust-chk">✓</div><div><div class="trust-title">요금 변동 조건 사전 공개</div><div class="trust-desc">한전 원가 20% 초과 상승 시에만 협의 조정됩니다. 일방적 인상은 없으며 조건이 계약서에 명시됩니다.</div></div></div>
+        <div class="trust-card"><div class="trust-chk">✓</div><div><div class="trust-title">SK그룹 계열사 신뢰도</div><div class="trust-desc">SK일렉링크는 SK그룹 계열의 전기차 충전 전문 기업으로 안정적인 운영을 보장합니다.</div></div></div>
+      </div>
+      <div class="contract-card reveal-r" style="align-self:stretch;display:flex;flex-direction:column;justify-content:space-between">
+        <div class="contract-h">📋 계약 주요 조건 요약</div>
+        <div class="contract-row"><span class="ck">충전 요금</span><span class="cv o">295원/kWh (고정)</span></div>
+        <div class="contract-row"><span class="ck">계약 기간</span><span class="cv">5년</span></div>
+        <div class="contract-row"><span class="ck">설치 비용</span><span class="cv g">SK일렉링크 전액 부담</span></div>
+        <div class="contract-row"><span class="ck">환경부 보조금</span><span class="cv g">당사 대행 처리</span></div>
+        <div class="contract-row"><span class="ck">CCTV 설치</span><span class="cv g">충전기 3기당 1대 무상 제공</span></div>
+        <div class="contract-row"><span class="ck">충전 크레딧</span><span class="cv g">세대당 3만 원</span></div>
+        <div class="contract-row"><span class="ck">요금 조정 조건</span><span class="cv">한전 원가 20% 초과 시 협의</span></div>
+        <div class="contract-row"><span class="ck">리베이트</span><span class="cv g">제공 없음 (Zero)</span></div>
+        <div class="contract-row"><span class="ck">보조금 의무 사용</span><span class="cv">5년 (보조금 수령 기준)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    </script>
+<!-- PROCESS -->
+<section class="section process" id="process">
+  <div class="wrap">
+    <div class="sec-hd tc">
+      <span class="label-tag lt-dim reveal">진행 절차</span>
+      <h2 class="sec-h reveal d1">계약 후 이렇게 진행됩니다</h2>
+      <p class="sec-sub reveal d2">입대위 결의 이후 SK일렉링크가 모든 과정을 처리합니다.</p>
+    </div>
+    <div style="position:relative">
+      <div class="timeline">
+        <div class="t-step reveal d1"><div class="t-icon ti1">📝</div><div class="t-step-label">STEP 01</div><div class="t-title">입주민 신청</div><div class="t-desc">입주민이 다이렉트 채널에서 설치를 신청합니다.</div><span class="t-dur">온라인 3분</span></div>
+        <div class="t-step reveal d2"><div class="t-icon ti2">👥</div><div class="t-step-label">STEP 02</div><div class="t-title">입대위 제안 및 계약</div><div class="t-desc">SK일렉링크가 직접 입대위에 공식 제안하고 계약을 체결합니다.</div><span class="t-dur">1~2주</span></div>
+        <div class="t-step reveal d3"><div class="t-icon ti3">🔧</div><div class="t-step-label">STEP 03</div><div class="t-title">보조금 신청 및 설치</div><div class="t-desc">환경부 보조금 신청과 충전기·CCTV 설치를 동시에 진행합니다.</div><span class="t-dur">2~4주</span></div>
+        <div class="t-step reveal d4"><div class="t-icon ti4">⚡</div><div class="t-step-label">STEP 04</div><div class="t-title">충전 시작 + 혜택 지급</div><div class="t-desc">설치 완료 즉시 충전 개시. 크레딧이 앱으로 자동 지급됩니다.</div><span class="t-dur">설치 완료 즉시</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL -->
+<section class="section social" id="social">
+  <div class="wrap">
+    <div class="sec-hd tc">
+      <span class="label-tag lt-gold reveal">입주민 현황</span>
+      <h2 class="sec-h reveal d1">이미 <span style="color:var(--gold)">○○명</span>의 입주민이<br>설치를 신청했습니다</h2>
+      <p class="sec-sub reveal d2">입주민의 자발적인 신청이 이 제안의 출발점입니다.</p>
+    </div>
+    <div class="counter-box reveal">
+      <div class="ctr-label">현재 단지 내 설치 신청 현황</div>
+      <div class="ctr-num" id="ctrNum">0</div>
+      <div class="ctr-unit">세대 신청 완료</div>
+      <div class="ctr-track"><div class="ctr-fill" id="ctrFill"></div></div>
+      <div class="ctr-cap">목표 임계점 <strong>10세대</strong> 중 <strong id="ctrPct">0</strong>% 달성</div>
+    </div>
+    <div class="review-grid">
+      <div class="review-card reveal d1"><div class="rev-head"><div class="rav">👤</div><div><div class="r-name">김○○님</div><div class="r-dong">○○동 · 아이오닉6</div></div></div><div class="r-stars">★★★★★</div><div class="r-text">"매번 외부 충전소 가는 게 너무 불편했어요. 단지 안에 생기면 정말 편할 것 같아서 바로 신청했습니다."</div></div>
+      <div class="review-card reveal d2"><div class="rev-head"><div class="rav">👤</div><div><div class="r-name">이○○님</div><div class="r-dong">○○동 · EV6</div></div></div><div class="r-stars">★★★★★</div><div class="r-text">"295원 5년 고정이라는 게 가장 마음에 들었어요. 요금이 갑자기 오를까봐 걱정했는데 안심됩니다."</div></div>
+      <div class="review-card reveal d3"><div class="rev-head"><div class="rav">👤</div><div><div class="r-name">박○○님</div><div class="r-dong">○○동 · 니로 EV</div></div></div><div class="r-stars">★★★★★</div><div class="r-text">"CCTV도 같이 설치된다니 주차장 안전도 좋아질 것 같아요. 이웃들한테도 바로 알렸습니다."</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <div class="cta-orb"></div>
+  <div class="wrap">
+    <h2 class="cta-h reveal">지금 바로 도입을 검토해보세요</h2>
+    <p class="cta-sub reveal d1">입주민 ○○명이 기다리고 있습니다.<br>SK일렉링크가 모든 과정을 함께합니다.</p>
+    <div class="cta-btns reveal d2">
+      <a href="#" class="btn-main">⚡ 도입 미팅 신청하기</a>
+      <a href="#" class="btn-ghost">제안서 PDF 다운로드</a>
+    </div>
+    <div class="cta-contact reveal d3">문의: <a href="#">SK일렉링크 성장지원팀</a> &nbsp;·&nbsp; <a href="mailto:direct@skeleclink.com">direct@skeleclink.com</a></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-inner">
+      <a class="foot-brand" href="#">
+        <div class="foot-icon">⚡</div>
+        <span class="foot-name">SK일렉링크</span>
+      </a>
+      <div class="foot-info">본 제안서는 SK일렉링크 성장지원팀이 작성했습니다.<br>수치는 가정치 기준이며 최종 계약 시 확정됩니다. © 2026 SK Eleclink</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── Cursor glow
+const glow = document.getElementById('glow');
+document.addEventListener('mousemove', e => {
+  glow.style.left = e.clientX + 'px';
+  glow.style.top  = e.clientY + 'px';
+});
+
+// ── Scroll reveal
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => io.observe(el));
+
+// ── Hero bars animate on load
+setTimeout(() => {
+  document.querySelectorAll('.bar-fill[data-w]').forEach(b => {
+    b.style.width = b.dataset.w + '%';
+  });
+}, 600);
+
+// ── Counter
+const ctrEl = document.getElementById('ctrNum');
+const ctrFill = document.getElementById('ctrFill');
+const ctrPct = document.getElementById('ctrPct');
+let ctrDone = false;
+const ctrIO = new IntersectionObserver(entries => {
+  if(entries[0].isIntersecting && !ctrDone) {
+    ctrDone = true;
+    const target = 6, goal = 10;
+    let v = 0;
+    const step = target / (1400/16);
+    const t = setInterval(() => {
+      v = Math.min(v + step, target);
+      ctrEl.textContent = Math.floor(v);
+      ctrPct.textContent = Math.round(Math.floor(v)/goal*100);
+      if(v >= target) clearInterval(t);
+    }, 16);
+    setTimeout(() => { ctrFill.style.width = (target/goal*100) + '%'; }, 150);
+  }
+}, { threshold: 0.3 });
+ctrIO.observe(document.querySelector('.counter-box'));
+
+// ── Calc tabs
+function showTab(id, btn) {
+  document.querySelectorAll('.calc-panel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('on'));
+  document.getElementById('p'+id).classList.add('on');
+  btn.classList.add('on');
+}
+
+// ── Nav active
+const secs = document.querySelectorAll('section[id]');
+const navAs = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  secs.forEach(s => { if(scrollY >= s.offsetTop - 80) cur = s.id; });
+  navAs.forEach(a => { a.style.color = a.getAttribute('href') === '#'+cur ? 'var(--gold)' : ''; });
+}, { passive: true });
+</script>
 </body>
 </html>
